@@ -10,14 +10,6 @@ import (
 	"github.com/antlr4-go/antlr/v4"
 )
 
-type TreeShapeListener struct {
-	*parser.BaseAmbientCalculusVisitor
-}
-
-func NewAmbientCalculusVisitorImpl() *TreeShapeListener {
-	return new(TreeShapeListener)
-}
-
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: go run main.go <input-file>")
@@ -50,8 +42,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println("AST graph generated as ast.png")
-	fmt.Println("Environments:", ambiencalculusVisitorImpl.Environments)
-	//fmt.Println("Environments:", visitor.Environments)
-	//fmt.Println("Processes:", visitor.Processes)
+	fmt.Println("AST Grafo generado como ast.png")
+	fmt.Println("Ambientes:", ambiencalculusVisitorImpl.Environments)
 }

@@ -146,7 +146,6 @@ func (v *TreeShapeListener) EnterInStatement(ctx *parser.InStatementContext) {
 	}
 }
 
-// EnterOutStatement sentencia out; se debe ver el ambiente actual y salir de él, tambien verificar si hay un ambiente padre en caso que no, imprimir que no se puede salir
 func (v *TreeShapeListener) EnterOutStatement(ctx *parser.OutStatementContext) {
 	label := "out"
 	nodeId := v.addNode(label)
@@ -196,7 +195,13 @@ func (v *TreeShapeListener) EnterMovementStatement(ctx *parser.MovementStatement
 	v.NodeStack = append(v.NodeStack, nodeId)
 
 	if ctx.ID() != nil {
-		fmt.Println(ctx.ID().GetText())
+		processName := ctx.ID().GetText()
+		for i, env := range v.Environments {
+			if env.Name == v.CurrentAmbients[len(v.CurrentAmbients)-1] {
+				v.Environments[i].Processes = append(v.Environments[i].Processes, processName)
+				break
+			}
+		}
 	}
 }
 

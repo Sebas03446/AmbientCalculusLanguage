@@ -10,6 +10,8 @@ ambient almacen2 {
     ambient frutas2 {
         in almacen;
         out;
+        process PERA {
+        }
     }
     
 }
