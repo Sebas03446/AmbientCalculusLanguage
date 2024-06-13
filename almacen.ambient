@@ -1,0 +1,21 @@
+ambient supermercado {
+    ambient frutas {
+        process PERA {
+        }
+        process MANZANA {
+        }
+    }
+    ambient nevera {
+        process QUESO400GR {
+        }
+    }
+    ambient carritodecompra {
+        in frutas;
+        out;
+        process SELECCIONARPERA {
+        }
+    }
+    ambient bolsa1 {
+    }
+}
+

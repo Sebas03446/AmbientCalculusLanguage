@@ -1,0 +1,1 @@
+(program (statement (ambientDeclaration ambient almacen { (statement (ambientDeclaration ambient frutas { (statement (ambientDeclaration ambient manzanas { })) })) })) (statement (ambientDeclaration ambient almacen2 { })) <EOF>)
