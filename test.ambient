@@ -1,16 +1,6 @@
-ambient almacen2 {
-    ambient frutas2 {
-        in almacen;
-        out;
-    }
-    move PERA to frutas2;
-    process PERA {
-    }
-    
-}
-
 ambient almacen {
-    ambient frutas {
-    }
+    process PERA {
+        let Y = 2 + 3;
+    }    
 }
 

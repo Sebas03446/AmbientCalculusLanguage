@@ -3,19 +3,21 @@ package visitor
 import (
 	"ambiencalculus/parser"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
 type TreeShapeListener struct {
 	*parser.BaseAmbientCalculusListener
 	Environments    []Environment
-	Processes       map[string]interface{}
+	Processes       []Process
 	CurrentAmbients []string
 	Nodes           []string
 	Edges           []string
 	NodeId          int
 	NodeStack       []int
 	PostActions     []func()
+	CurrentProcess  string
 }
 
 type Environment struct {
@@ -24,14 +26,20 @@ type Environment struct {
 	AmbientParent string
 }
 
+type Process struct {
+	Name      string
+	Variables map[string]interface{}
+}
+
 func NewAmbientCalculusVisitorImpl() *TreeShapeListener {
 	return &TreeShapeListener{
-		Environments: make([]Environment, 0),
-		Processes:    make(map[string]interface{}),
-		Nodes:        make([]string, 0),
-		Edges:        make([]string, 0),
-		NodeStack:    make([]int, 0),
-		PostActions:  make([]func(), 0),
+		Environments:   make([]Environment, 0),
+		Processes:      make([]Process, 0),
+		Nodes:          make([]string, 0),
+		Edges:          make([]string, 0),
+		NodeStack:      make([]int, 0),
+		PostActions:    make([]func(), 0),
+		CurrentProcess: "",
 	}
 }
 
@@ -117,14 +125,16 @@ func (v *TreeShapeListener) EnterProcessDeclaration(ctx *parser.ProcessDeclarati
 	}
 	v.NodeStack = append(v.NodeStack, nodeId)
 
-	for key := range v.Processes {
-		if key == ctx.ID().GetText() {
+	for _, process := range v.Processes {
+		if process.Name == ctx.ID().GetText() {
 			panic("No se pueden agregar procesos con el mismo nombre: " + ctx.ID().GetText())
 		}
 	}
 	if ctx.ID() != nil {
 		processName := ctx.ID().GetText()
-		v.Processes[processName] = nil
+		newProcess := Process{Name: processName, Variables: make(map[string]interface{})}
+		v.Processes = append(v.Processes, newProcess)
+		v.CurrentProcess = processName
 		for i, env := range v.Environments {
 			if env.Name == v.CurrentAmbients[len(v.CurrentAmbients)-1] {
 				v.Environments[i].Processes = append(v.Environments[i].Processes, processName)
@@ -136,6 +146,7 @@ func (v *TreeShapeListener) EnterProcessDeclaration(ctx *parser.ProcessDeclarati
 
 func (v *TreeShapeListener) ExitProcessDeclaration(ctx *parser.ProcessDeclarationContext) {
 	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
+	v.CurrentProcess = ""
 }
 
 func (v *TreeShapeListener) EnterInStatement(ctx *parser.InStatementContext) {
@@ -271,30 +282,94 @@ func (v *TreeShapeListener) ExitMovementStatement(ctx *parser.MovementStatementC
 	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
 }
 
-func (v *TreeShapeListener) EnterCommunicationStatement(ctx *parser.CommunicationStatementContext) {
-	fmt.Println("Visiting communication statement")
-}
+// EnterVariableDeclaration variableDeclaration: 'let' ID '=' expression ';'; ID es cualquier combinación de mayúsculas y numeros
+func (v *TreeShapeListener) EnterVariableDeclaration(ctx *parser.VariableDeclarationContext) {
+	label := "let " + ctx.ID().GetText() + " = " + ctx.Expression().GetText()
+	nodeId := v.addNode(label)
+	if len(v.NodeStack) > 0 {
+		parentId := v.NodeStack[len(v.NodeStack)-1]
+		v.addEdge(parentId, nodeId)
+	}
+	v.NodeStack = append(v.NodeStack, nodeId)
 
-func (v *TreeShapeListener) EnterExpression(ctx *parser.ExpressionContext) {
-	fmt.Println("Visiting expression")
 	if ctx.ID() != nil {
-		fmt.Println(ctx.ID().GetText())
-	} else if ctx.INT() != nil {
-		fmt.Println(ctx.INT().GetText())
-	} else if ctx.STRING() != nil {
-		fmt.Println(ctx.STRING().GetText())
-	} else if ctx.GetOp() != nil {
-		left := ctx.Expression(0)
-		right := ctx.Expression(1)
-		switch ctx.GetOp().GetTokenType() {
-		case '*':
-			fmt.Println(left.GetText() + " * " + right.GetText())
-		case '/':
-			fmt.Println(left.GetText() + " / " + right.GetText())
-		case '+':
-			fmt.Println(left.GetText() + " + " + right.GetText())
-		case '-':
-			fmt.Println(left.GetText() + " - " + right.GetText())
+		varName := ctx.ID().GetText()
+		//result := GetResultExpression(ctx)
+
+		for _, process := range v.Processes {
+			if process.Name == v.CurrentProcess {
+				if _, ok := process.Variables[varName]; ok {
+					panic("No se pueden agregar variables con el mismo nombre: " + varName)
+				}
+				break
+			}
 		}
 	}
+}
+
+func (v *TreeShapeListener) ExitVariableDeclaration(ctx *parser.VariableDeclarationContext) {
+	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
+}
+
+// EnterPrintStatement
+func (v *TreeShapeListener) EnterPrintStatement(ctx *parser.PrintStatementContext) {
+	expression := ctx.Expression().GetText()
+	label := "print " + expression
+	nodeId := v.addNode(label)
+	if len(v.NodeStack) > 0 {
+		parentId := v.NodeStack[len(v.NodeStack)-1]
+		v.addEdge(parentId, nodeId)
+	}
+	v.NodeStack = append(v.NodeStack, nodeId)
+
+	fmt.Println("Imprimiendo:", expression)
+}
+
+func (v *TreeShapeListener) ExitPrintStatement(ctx *parser.PrintStatementContext) {
+	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
+}
+
+// EnterExpression
+
+func (v *TreeShapeListener) EnterExpression(ctx *parser.ExpressionContext) {
+	label := ctx.GetText()
+	nodeId := v.addNode(label)
+	if len(v.NodeStack) > 0 {
+		parentId := v.NodeStack[len(v.NodeStack)-1]
+		v.addEdge(parentId, nodeId)
+	}
+	v.NodeStack = append(v.NodeStack, nodeId)
+
+	fmt.Println("Visitando expresión")
+
+}
+
+func (v *TreeShapeListener) ExitExpression(ctx *parser.ExpressionContext) {
+	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
+}
+
+func GetResultExpression(ctx *parser.ExpressionContext) interface{} {
+	fmt.Println("Visiting expression")
+	if ctx.ID() != nil {
+		return ctx.ID().GetText()
+	} else if ctx.INT() != nil {
+		value, _ := strconv.Atoi(ctx.INT().GetText())
+		return value
+	} else if ctx.STRING() != nil {
+		return ctx.STRING().GetText()
+	} else if ctx.GetOp() != nil {
+		left := ctx.Expression(0).GetAltNumber()
+		right := ctx.Expression(1).GetAltNumber()
+		switch ctx.GetOp().GetTokenType() {
+		case 22:
+			return left * right
+		case 23:
+			return left / right
+		case 24:
+			return left + right
+		case 25:
+			return left - right
+		}
+	}
+	return nil
 }

@@ -1,19 +1,15 @@
 digraph G {
   node0 [label="Program"];
-  node1 [label="ambient almacen2"];
-  node2 [label="ambient frutas2"];
-  node3 [label="in almacen"];
-  node4 [label="out"];
-  node5 [label="move PERA"];
-  node6 [label="process PERA"];
-  node7 [label="ambient almacen"];
-  node8 [label="ambient frutas"];
+  node1 [label="ambient almacen"];
+  node2 [label="process PERA"];
+  node3 [label="let Y = 2+3"];
+  node4 [label="2+3"];
+  node5 [label="2"];
+  node6 [label="3"];
   node0 -> node1;
   node1 -> node2;
   node2 -> node3;
-  node2 -> node4;
-  node1 -> node5;
-  node1 -> node6;
-  node0 -> node7;
-  node7 -> node8;
+  node3 -> node4;
+  node4 -> node5;
+  node4 -> node6;
 }

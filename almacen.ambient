@@ -19,3 +19,18 @@ ambient supermercado {
     }
 }
 
+ambient almacen2 {
+    ambient frutas2 {
+        in almacen;
+        out;
+    }
+    move PERA to frutas2;
+    process PERA {
+    }
+    
+}
+
+ambient almacen {
+    ambient frutas {
+    }
+}

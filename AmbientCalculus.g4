@@ -41,13 +41,14 @@ ifStatement: 'if' '(' expression ')' '{' statement* '}';
 
 variableDeclaration: 'let' ID '=' expression ';';
 
-expression: expression op=('*'|'/') expression
-          | expression op=('+'|'-') expression
+expression: expression operator expression
           | '(' expression ')'
           | ID
           | INT
           | STRING
           ;
+
+operator: '+' | '-' | '*' | '/';
 
 AMBIENTID: [a-z][a-z0-9_]*;
 ID: [A-Z][A-Z0-9_]*;
