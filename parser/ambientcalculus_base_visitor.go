@@ -64,7 +64,15 @@ func (v *BaseAmbientCalculusVisitor) VisitPrintStatement(ctx *PrintStatementCont
 	return v.VisitChildren(ctx)
 }
 
-func (v *BaseAmbientCalculusVisitor) VisitIfStatement(ctx *IfStatementContext) interface{} {
+func (v *BaseAmbientCalculusVisitor) VisitPrintConditionStatement(ctx *PrintConditionStatementContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseAmbientCalculusVisitor) VisitModifyConditionStatement(ctx *ModifyConditionStatementContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseAmbientCalculusVisitor) VisitConditionsBlock(ctx *ConditionsBlockContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
@@ -72,6 +80,26 @@ func (v *BaseAmbientCalculusVisitor) VisitVariableDeclaration(ctx *VariableDecla
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseAmbientCalculusVisitor) VisitConditionsVariableDeclaration(ctx *ConditionsVariableDeclarationContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseAmbientCalculusVisitor) VisitRestriction(ctx *RestrictionContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseAmbientCalculusVisitor) VisitAssignmentStatement(ctx *AssignmentStatementContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseAmbientCalculusVisitor) VisitExpression(ctx *ExpressionContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseAmbientCalculusVisitor) VisitOperator(ctx *OperatorContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseAmbientCalculusVisitor) VisitComparator(ctx *ComparatorContext) interface{} {
 	return v.VisitChildren(ctx)
 }

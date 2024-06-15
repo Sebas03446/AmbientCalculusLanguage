@@ -11,20 +11,22 @@ statement: processDeclaration
          | openStatement
          | callStatement
          | printStatement
-         | ifStatement
          | variableDeclaration
+         | assignmentStatement
+         | modifyConditionStatement
          ;
 
 processDeclaration: 'process' ID '{' processStatement* '}';
 
 processStatement: statement
-                | moveStatement;
+                | moveStatement
+                | printConditionStatement;
 
 moveStatement: 'move' AMBIENTID ';';
 
 ambientDeclaration: 'ambient' AMBIENTID '{' conditions? statement* '}';
 
-conditions: 'conditions' '{' statement* '}';
+conditions: conditionsBlock '{' conditionsVariableDeclaration*  '}';
 
 movementStatement: 'move' ID 'to' AMBIENTID ';';
 
@@ -37,9 +39,16 @@ outStatement: 'out' ';';
 openStatement: 'open' AMBIENTID ';';
 callStatement: 'call' ID ';';
 printStatement: 'print' expression ';';
-ifStatement: 'if' '(' expression ')' '{' statement* '}';
+printConditionStatement: 'printc' ID ';';
 
+modifyConditionStatement: 'modifyc' ID op=('+=' | '-=') expression ';';
+conditionsBlock: 'conditions';
 variableDeclaration: 'let' ID '=' expression ';';
+
+conditionsVariableDeclaration: 'letc' ID '=' INT restriction? ';';
+restriction: 'restriction' comparator INT;
+
+assignmentStatement: ID '=' expression ';';
 
 expression: expression operator expression
           | '(' expression ')'
@@ -49,6 +58,9 @@ expression: expression operator expression
           ;
 
 operator: '+' | '-' | '*' | '/';
+
+comparator: '>' | '<' | '>=' | '<=' | '==' | '!=';
+
 
 AMBIENTID: [a-z][a-z0-9_]*;
 ID: [A-Z][A-Z0-9_]*;
