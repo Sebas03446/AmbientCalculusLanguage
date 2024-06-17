@@ -24,11 +24,23 @@ func (v *TreeShapeListener) EnterInStatement(ctx *parser.InStatementContext) {
 				fmt.Println("Ambiente actual ya es el destino")
 				return
 			}
+
+			found := false
+			for _, env := range v.Environments {
+				if env.Name == destAmbient {
+					found = true
+					break
+				}
+			}
+
 			for i, env := range v.Environments {
 				if env.Name == currentAmbient {
 					v.Environments[i].AmbientParent = destAmbient
 					break
 				}
+			}
+			if !found {
+				panic(fmt.Sprintf("No se encontró el ambiente %s", currentAmbient))
 			}
 
 			fmt.Printf("El ambiente %s ha entrado exitosamente al ambiente %s\n", currentAmbient, destAmbient)

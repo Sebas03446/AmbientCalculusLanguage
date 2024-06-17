@@ -1,9 +1,13 @@
 package visitor
 
-import "ambiencalculus/parser"
+import (
+	"ambiencalculus/parser"
+	"strings"
+)
 
 func (v *TreeShapeListener) EnterExpression(ctx *parser.ExpressionContext) {
 	label := ctx.GetText()
+	label = strings.Trim(label, `"`)
 	nodeId := v.AddNode(label)
 	if len(v.NodeStack) > 0 {
 		parentId := v.NodeStack[len(v.NodeStack)-1]
