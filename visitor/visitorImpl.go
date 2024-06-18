@@ -2,6 +2,7 @@ package visitor
 
 import (
 	"ambiencalculus/parser"
+	"fmt"
 	"strconv"
 )
 
@@ -35,6 +36,12 @@ type Process struct {
 	Name      string
 	Variables map[string]interface{}
 	Ambient   string
+	Messages  []Message
+}
+
+type Message struct {
+	Content string
+	From    string
 }
 
 func NewAmbientCalculusVisitorImpl() *TreeShapeListener {
@@ -82,4 +89,72 @@ func (v *TreeShapeListener) evaluateExpression(ctx *parser.ExpressionContext) in
 		}
 	}
 	return nil
+}
+
+func (v *TreeShapeListener) EnterSendStatement(ctx *parser.SendStatementContext) {
+	message := ctx.STRING().GetText()
+	label := "send " + message[1:len(message)-1] + " to " + ctx.ID().GetText()
+	nodeId := v.AddNode(label)
+	if len(v.NodeStack) > 0 {
+		parentId := v.NodeStack[len(v.NodeStack)-1]
+		v.AddEdge(parentId, nodeId)
+	}
+	v.NodeStack = append(v.NodeStack, nodeId)
+
+	currentProcess := v.CurrentProcess
+	destinationProcess := ctx.ID().GetText()
+	existDestinationProcess := false
+
+	v.PostActions = append(v.PostActions, func() {
+
+		if currentProcess == destinationProcess {
+			panic("No se puede enviar un mensaje al mismo proceso")
+		}
+
+		for i, process := range v.Processes {
+			if process.Name == destinationProcess {
+				existDestinationProcess = true
+				process.Messages = append(process.Messages, Message{Content: message, From: currentProcess})
+				v.Processes[i] = process
+				break
+			}
+		}
+
+		if !existDestinationProcess {
+			panic("El proceso " + destinationProcess + " no existe")
+		}
+
+	})
+}
+
+func (v *TreeShapeListener) ExitSendStatement(ctx *parser.SendStatementContext) {
+	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
+}
+
+func (v *TreeShapeListener) EnterReceiveStatement(ctx *parser.ReceiveStatementContext) {
+	label := "receive"
+	nodeId := v.AddNode(label)
+	if len(v.NodeStack) > 0 {
+		parentId := v.NodeStack[len(v.NodeStack)-1]
+		v.AddEdge(parentId, nodeId)
+	}
+	v.NodeStack = append(v.NodeStack, nodeId)
+
+	currentProcess := v.CurrentProcess
+	v.PostActions = append(v.PostActions, func() {
+		for i, process := range v.Processes {
+			if process.Name == currentProcess {
+				if len(process.Messages) == 0 {
+					fmt.Println("No hay mensajes para recibir")
+				}
+				fmt.Println("Mensaje recibido de:", process.Messages[0].From, "con contenido:", process.Messages[0].Content)
+				process.Messages = process.Messages[1:]
+				v.Processes[i] = process
+			}
+		}
+	})
+}
+
+func (v *TreeShapeListener) ExitReceiveStatement(ctx *parser.ReceiveStatementContext) {
+	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
 }

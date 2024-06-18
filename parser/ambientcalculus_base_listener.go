@@ -69,13 +69,17 @@ func (s *BaseAmbientCalculusListener) EnterMovementStatement(ctx *MovementStatem
 // ExitMovementStatement is called when production movementStatement is exited.
 func (s *BaseAmbientCalculusListener) ExitMovementStatement(ctx *MovementStatementContext) {}
 
-// EnterCommunicationStatement is called when production communicationStatement is entered.
-func (s *BaseAmbientCalculusListener) EnterCommunicationStatement(ctx *CommunicationStatementContext) {
-}
+// EnterSendStatement is called when production sendStatement is entered.
+func (s *BaseAmbientCalculusListener) EnterSendStatement(ctx *SendStatementContext) {}
 
-// ExitCommunicationStatement is called when production communicationStatement is exited.
-func (s *BaseAmbientCalculusListener) ExitCommunicationStatement(ctx *CommunicationStatementContext) {
-}
+// ExitSendStatement is called when production sendStatement is exited.
+func (s *BaseAmbientCalculusListener) ExitSendStatement(ctx *SendStatementContext) {}
+
+// EnterReceiveStatement is called when production receiveStatement is entered.
+func (s *BaseAmbientCalculusListener) EnterReceiveStatement(ctx *ReceiveStatementContext) {}
+
+// ExitReceiveStatement is called when production receiveStatement is exited.
+func (s *BaseAmbientCalculusListener) ExitReceiveStatement(ctx *ReceiveStatementContext) {}
 
 // EnterInStatement is called when production inStatement is entered.
 func (s *BaseAmbientCalculusListener) EnterInStatement(ctx *InStatementContext) {}

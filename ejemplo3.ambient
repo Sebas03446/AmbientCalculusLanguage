@@ -1,11 +1,20 @@
 ambient edificio {
-}
-
-ambient oficina {
-        in edificio;
-        out;
-}
-
-ambient mesa {
-        in oficina;
+        ambient asensor {
+                process MOVERELEVADOR{
+                        send "5" to MOSTRARENPANTALLA;
+                        send "4" to MOSTRARENPANTALLA;
+                        send "3" to MOSTRARENPANTALLA;
+                        send "2" to MOSTRARENPANTALLA;
+                        send "1" to MOSTRARENPANTALLA;
+                }
+        }
+        ambient controladorprimerpiso {
+                process MOSTRARENPANTALLA{
+                        receive;
+                        receive;
+                        receive;
+                        receive;
+                        receive;
+                }
+        }
 }

@@ -40,7 +40,11 @@ func (v *BaseAmbientCalculusVisitor) VisitMovementStatement(ctx *MovementStateme
 	return v.VisitChildren(ctx)
 }
 
-func (v *BaseAmbientCalculusVisitor) VisitCommunicationStatement(ctx *CommunicationStatementContext) interface{} {
+func (v *BaseAmbientCalculusVisitor) VisitSendStatement(ctx *SendStatementContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseAmbientCalculusVisitor) VisitReceiveStatement(ctx *ReceiveStatementContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 

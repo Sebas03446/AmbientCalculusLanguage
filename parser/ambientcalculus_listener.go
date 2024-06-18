@@ -32,8 +32,11 @@ type AmbientCalculusListener interface {
 	// EnterMovementStatement is called when entering the movementStatement production.
 	EnterMovementStatement(c *MovementStatementContext)
 
-	// EnterCommunicationStatement is called when entering the communicationStatement production.
-	EnterCommunicationStatement(c *CommunicationStatementContext)
+	// EnterSendStatement is called when entering the sendStatement production.
+	EnterSendStatement(c *SendStatementContext)
+
+	// EnterReceiveStatement is called when entering the receiveStatement production.
+	EnterReceiveStatement(c *ReceiveStatementContext)
 
 	// EnterInStatement is called when entering the inStatement production.
 	EnterInStatement(c *InStatementContext)
@@ -104,8 +107,11 @@ type AmbientCalculusListener interface {
 	// ExitMovementStatement is called when exiting the movementStatement production.
 	ExitMovementStatement(c *MovementStatementContext)
 
-	// ExitCommunicationStatement is called when exiting the communicationStatement production.
-	ExitCommunicationStatement(c *CommunicationStatementContext)
+	// ExitSendStatement is called when exiting the sendStatement production.
+	ExitSendStatement(c *SendStatementContext)
+
+	// ExitReceiveStatement is called when exiting the receiveStatement production.
+	ExitReceiveStatement(c *ReceiveStatementContext)
 
 	// ExitInStatement is called when exiting the inStatement production.
 	ExitInStatement(c *InStatementContext)

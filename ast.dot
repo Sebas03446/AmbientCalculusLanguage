@@ -4,14 +4,12 @@ digraph G {
   node2 [label="ambient oficina"];
   node3 [label="in edificio"];
   node4 [label="out"];
-  node5 [label="out"];
-  node6 [label="ambient mesa"];
-  node7 [label="in oficina"];
+  node5 [label="ambient mesa"];
+  node6 [label="in oficina"];
   node0 -> node1;
   node0 -> node2;
   node2 -> node3;
   node2 -> node4;
-  node2 -> node5;
-  node0 -> node6;
-  node6 -> node7;
+  node0 -> node5;
+  node5 -> node6;
 }

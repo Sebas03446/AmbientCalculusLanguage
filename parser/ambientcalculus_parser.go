@@ -34,112 +34,112 @@ func ambientcalculusParserInit() {
 	staticData := &AmbientCalculusParserStaticData
 	staticData.LiteralNames = []string{
 		"", "'process'", "'{'", "'}'", "'move'", "';'", "'ambient'", "'to'",
-		"'send'", "'receive'", "'from'", "'in'", "'out'", "'open'", "'call'",
-		"'print'", "'printc'", "'modifyc'", "'+='", "'-='", "'conditions'",
-		"'let'", "'='", "'letc'", "'restriction'", "'('", "')'", "'+'", "'-'",
-		"'*'", "'/'", "'>'", "'<'", "'>='", "'<='", "'=='", "'!='",
+		"'send'", "'receive'", "'in'", "'out'", "'open'", "'call'", "'print'",
+		"'printc'", "'modifyc'", "'+='", "'-='", "'conditions'", "'let'", "'='",
+		"'letc'", "'restriction'", "'('", "')'", "'+'", "'-'", "'*'", "'/'",
+		"'>'", "'<'", "'>='", "'<='", "'=='", "'!='",
 	}
 	staticData.SymbolicNames = []string{
 		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
 		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-		"", "", "", "AMBIENTID", "ID", "INT", "STRING", "WS", "COMMENT",
+		"", "", "AMBIENTID", "ID", "INT", "STRING", "WS", "COMMENT",
 	}
 	staticData.RuleNames = []string{
 		"program", "statement", "processDeclaration", "processStatement", "moveStatement",
-		"ambientDeclaration", "conditions", "movementStatement", "communicationStatement",
-		"inStatement", "outStatement", "openStatement", "callStatement", "printStatement",
-		"printConditionStatement", "modifyConditionStatement", "conditionsBlock",
-		"variableDeclaration", "conditionsVariableDeclaration", "restriction",
-		"assignmentStatement", "expression", "operator", "comparator",
+		"ambientDeclaration", "conditions", "movementStatement", "sendStatement",
+		"receiveStatement", "inStatement", "outStatement", "openStatement",
+		"callStatement", "printStatement", "printConditionStatement", "modifyConditionStatement",
+		"conditionsBlock", "variableDeclaration", "conditionsVariableDeclaration",
+		"restriction", "assignmentStatement", "expression", "operator", "comparator",
 	}
 	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 42, 212, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 1, 41, 211, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
 		4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 2, 10, 7,
 		10, 2, 11, 7, 11, 2, 12, 7, 12, 2, 13, 7, 13, 2, 14, 7, 14, 2, 15, 7, 15,
 		2, 16, 7, 16, 2, 17, 7, 17, 2, 18, 7, 18, 2, 19, 7, 19, 2, 20, 7, 20, 2,
-		21, 7, 21, 2, 22, 7, 22, 2, 23, 7, 23, 1, 0, 5, 0, 50, 8, 0, 10, 0, 12,
-		0, 53, 9, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-		1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 69, 8, 1, 1, 2, 1, 2, 1, 2, 1, 2, 5, 2, 75,
-		8, 2, 10, 2, 12, 2, 78, 9, 2, 1, 2, 1, 2, 1, 3, 1, 3, 1, 3, 3, 3, 85, 8,
-		3, 1, 4, 1, 4, 1, 4, 1, 4, 1, 5, 1, 5, 1, 5, 1, 5, 3, 5, 95, 8, 5, 1, 5,
-		5, 5, 98, 8, 5, 10, 5, 12, 5, 101, 9, 5, 1, 5, 1, 5, 1, 6, 1, 6, 1, 6,
-		5, 6, 108, 8, 6, 10, 6, 12, 6, 111, 9, 6, 1, 6, 1, 6, 1, 7, 1, 7, 1, 7,
-		1, 7, 1, 7, 1, 7, 1, 8, 1, 8, 1, 8, 1, 8, 1, 8, 1, 8, 1, 8, 1, 8, 1, 8,
-		1, 8, 1, 8, 3, 8, 132, 8, 8, 1, 9, 1, 9, 1, 9, 1, 9, 1, 10, 1, 10, 1, 10,
-		1, 11, 1, 11, 1, 11, 1, 11, 1, 12, 1, 12, 1, 12, 1, 12, 1, 13, 1, 13, 1,
-		13, 1, 13, 1, 14, 1, 14, 1, 14, 1, 14, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15,
-		1, 15, 1, 16, 1, 16, 1, 17, 1, 17, 1, 17, 1, 17, 1, 17, 1, 17, 1, 18, 1,
-		18, 1, 18, 1, 18, 1, 18, 3, 18, 176, 8, 18, 1, 18, 1, 18, 1, 19, 1, 19,
-		1, 19, 1, 19, 1, 20, 1, 20, 1, 20, 1, 20, 1, 20, 1, 21, 1, 21, 1, 21, 1,
-		21, 1, 21, 1, 21, 1, 21, 1, 21, 3, 21, 197, 8, 21, 1, 21, 1, 21, 1, 21,
-		1, 21, 5, 21, 203, 8, 21, 10, 21, 12, 21, 206, 9, 21, 1, 22, 1, 22, 1,
-		23, 1, 23, 1, 23, 0, 1, 42, 24, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20,
-		22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 0, 3, 1, 0, 18, 19,
-		1, 0, 27, 30, 1, 0, 31, 36, 211, 0, 51, 1, 0, 0, 0, 2, 68, 1, 0, 0, 0,
-		4, 70, 1, 0, 0, 0, 6, 84, 1, 0, 0, 0, 8, 86, 1, 0, 0, 0, 10, 90, 1, 0,
-		0, 0, 12, 104, 1, 0, 0, 0, 14, 114, 1, 0, 0, 0, 16, 131, 1, 0, 0, 0, 18,
-		133, 1, 0, 0, 0, 20, 137, 1, 0, 0, 0, 22, 140, 1, 0, 0, 0, 24, 144, 1,
-		0, 0, 0, 26, 148, 1, 0, 0, 0, 28, 152, 1, 0, 0, 0, 30, 156, 1, 0, 0, 0,
-		32, 162, 1, 0, 0, 0, 34, 164, 1, 0, 0, 0, 36, 170, 1, 0, 0, 0, 38, 179,
-		1, 0, 0, 0, 40, 183, 1, 0, 0, 0, 42, 196, 1, 0, 0, 0, 44, 207, 1, 0, 0,
-		0, 46, 209, 1, 0, 0, 0, 48, 50, 3, 2, 1, 0, 49, 48, 1, 0, 0, 0, 50, 53,
-		1, 0, 0, 0, 51, 49, 1, 0, 0, 0, 51, 52, 1, 0, 0, 0, 52, 54, 1, 0, 0, 0,
-		53, 51, 1, 0, 0, 0, 54, 55, 5, 0, 0, 1, 55, 1, 1, 0, 0, 0, 56, 69, 3, 4,
-		2, 0, 57, 69, 3, 10, 5, 0, 58, 69, 3, 14, 7, 0, 59, 69, 3, 16, 8, 0, 60,
-		69, 3, 18, 9, 0, 61, 69, 3, 20, 10, 0, 62, 69, 3, 22, 11, 0, 63, 69, 3,
-		24, 12, 0, 64, 69, 3, 26, 13, 0, 65, 69, 3, 34, 17, 0, 66, 69, 3, 40, 20,
-		0, 67, 69, 3, 30, 15, 0, 68, 56, 1, 0, 0, 0, 68, 57, 1, 0, 0, 0, 68, 58,
-		1, 0, 0, 0, 68, 59, 1, 0, 0, 0, 68, 60, 1, 0, 0, 0, 68, 61, 1, 0, 0, 0,
-		68, 62, 1, 0, 0, 0, 68, 63, 1, 0, 0, 0, 68, 64, 1, 0, 0, 0, 68, 65, 1,
-		0, 0, 0, 68, 66, 1, 0, 0, 0, 68, 67, 1, 0, 0, 0, 69, 3, 1, 0, 0, 0, 70,
-		71, 5, 1, 0, 0, 71, 72, 5, 38, 0, 0, 72, 76, 5, 2, 0, 0, 73, 75, 3, 6,
-		3, 0, 74, 73, 1, 0, 0, 0, 75, 78, 1, 0, 0, 0, 76, 74, 1, 0, 0, 0, 76, 77,
-		1, 0, 0, 0, 77, 79, 1, 0, 0, 0, 78, 76, 1, 0, 0, 0, 79, 80, 5, 3, 0, 0,
-		80, 5, 1, 0, 0, 0, 81, 85, 3, 2, 1, 0, 82, 85, 3, 8, 4, 0, 83, 85, 3, 28,
-		14, 0, 84, 81, 1, 0, 0, 0, 84, 82, 1, 0, 0, 0, 84, 83, 1, 0, 0, 0, 85,
-		7, 1, 0, 0, 0, 86, 87, 5, 4, 0, 0, 87, 88, 5, 37, 0, 0, 88, 89, 5, 5, 0,
-		0, 89, 9, 1, 0, 0, 0, 90, 91, 5, 6, 0, 0, 91, 92, 5, 37, 0, 0, 92, 94,
-		5, 2, 0, 0, 93, 95, 3, 12, 6, 0, 94, 93, 1, 0, 0, 0, 94, 95, 1, 0, 0, 0,
-		95, 99, 1, 0, 0, 0, 96, 98, 3, 2, 1, 0, 97, 96, 1, 0, 0, 0, 98, 101, 1,
-		0, 0, 0, 99, 97, 1, 0, 0, 0, 99, 100, 1, 0, 0, 0, 100, 102, 1, 0, 0, 0,
-		101, 99, 1, 0, 0, 0, 102, 103, 5, 3, 0, 0, 103, 11, 1, 0, 0, 0, 104, 105,
-		3, 32, 16, 0, 105, 109, 5, 2, 0, 0, 106, 108, 3, 36, 18, 0, 107, 106, 1,
-		0, 0, 0, 108, 111, 1, 0, 0, 0, 109, 107, 1, 0, 0, 0, 109, 110, 1, 0, 0,
-		0, 110, 112, 1, 0, 0, 0, 111, 109, 1, 0, 0, 0, 112, 113, 5, 3, 0, 0, 113,
-		13, 1, 0, 0, 0, 114, 115, 5, 4, 0, 0, 115, 116, 5, 38, 0, 0, 116, 117,
-		5, 7, 0, 0, 117, 118, 5, 37, 0, 0, 118, 119, 5, 5, 0, 0, 119, 15, 1, 0,
-		0, 0, 120, 121, 5, 8, 0, 0, 121, 122, 3, 42, 21, 0, 122, 123, 5, 7, 0,
-		0, 123, 124, 5, 38, 0, 0, 124, 125, 5, 5, 0, 0, 125, 132, 1, 0, 0, 0, 126,
-		127, 5, 9, 0, 0, 127, 128, 5, 38, 0, 0, 128, 129, 5, 10, 0, 0, 129, 130,
-		5, 38, 0, 0, 130, 132, 5, 5, 0, 0, 131, 120, 1, 0, 0, 0, 131, 126, 1, 0,
-		0, 0, 132, 17, 1, 0, 0, 0, 133, 134, 5, 11, 0, 0, 134, 135, 5, 37, 0, 0,
-		135, 136, 5, 5, 0, 0, 136, 19, 1, 0, 0, 0, 137, 138, 5, 12, 0, 0, 138,
-		139, 5, 5, 0, 0, 139, 21, 1, 0, 0, 0, 140, 141, 5, 13, 0, 0, 141, 142,
-		5, 37, 0, 0, 142, 143, 5, 5, 0, 0, 143, 23, 1, 0, 0, 0, 144, 145, 5, 14,
-		0, 0, 145, 146, 5, 38, 0, 0, 146, 147, 5, 5, 0, 0, 147, 25, 1, 0, 0, 0,
-		148, 149, 5, 15, 0, 0, 149, 150, 3, 42, 21, 0, 150, 151, 5, 5, 0, 0, 151,
-		27, 1, 0, 0, 0, 152, 153, 5, 16, 0, 0, 153, 154, 5, 38, 0, 0, 154, 155,
-		5, 5, 0, 0, 155, 29, 1, 0, 0, 0, 156, 157, 5, 17, 0, 0, 157, 158, 5, 38,
-		0, 0, 158, 159, 7, 0, 0, 0, 159, 160, 3, 42, 21, 0, 160, 161, 5, 5, 0,
-		0, 161, 31, 1, 0, 0, 0, 162, 163, 5, 20, 0, 0, 163, 33, 1, 0, 0, 0, 164,
-		165, 5, 21, 0, 0, 165, 166, 5, 38, 0, 0, 166, 167, 5, 22, 0, 0, 167, 168,
-		3, 42, 21, 0, 168, 169, 5, 5, 0, 0, 169, 35, 1, 0, 0, 0, 170, 171, 5, 23,
-		0, 0, 171, 172, 5, 38, 0, 0, 172, 173, 5, 22, 0, 0, 173, 175, 5, 39, 0,
-		0, 174, 176, 3, 38, 19, 0, 175, 174, 1, 0, 0, 0, 175, 176, 1, 0, 0, 0,
-		176, 177, 1, 0, 0, 0, 177, 178, 5, 5, 0, 0, 178, 37, 1, 0, 0, 0, 179, 180,
-		5, 24, 0, 0, 180, 181, 3, 46, 23, 0, 181, 182, 5, 39, 0, 0, 182, 39, 1,
-		0, 0, 0, 183, 184, 5, 38, 0, 0, 184, 185, 5, 22, 0, 0, 185, 186, 3, 42,
-		21, 0, 186, 187, 5, 5, 0, 0, 187, 41, 1, 0, 0, 0, 188, 189, 6, 21, -1,
-		0, 189, 190, 5, 25, 0, 0, 190, 191, 3, 42, 21, 0, 191, 192, 5, 26, 0, 0,
-		192, 197, 1, 0, 0, 0, 193, 197, 5, 38, 0, 0, 194, 197, 5, 39, 0, 0, 195,
-		197, 5, 40, 0, 0, 196, 188, 1, 0, 0, 0, 196, 193, 1, 0, 0, 0, 196, 194,
-		1, 0, 0, 0, 196, 195, 1, 0, 0, 0, 197, 204, 1, 0, 0, 0, 198, 199, 10, 5,
-		0, 0, 199, 200, 3, 44, 22, 0, 200, 201, 3, 42, 21, 6, 201, 203, 1, 0, 0,
-		0, 202, 198, 1, 0, 0, 0, 203, 206, 1, 0, 0, 0, 204, 202, 1, 0, 0, 0, 204,
-		205, 1, 0, 0, 0, 205, 43, 1, 0, 0, 0, 206, 204, 1, 0, 0, 0, 207, 208, 7,
-		1, 0, 0, 208, 45, 1, 0, 0, 0, 209, 210, 7, 2, 0, 0, 210, 47, 1, 0, 0, 0,
-		11, 51, 68, 76, 84, 94, 99, 109, 131, 175, 196, 204,
+		21, 7, 21, 2, 22, 7, 22, 2, 23, 7, 23, 2, 24, 7, 24, 1, 0, 5, 0, 52, 8,
+		0, 10, 0, 12, 0, 55, 9, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 72, 8, 1, 1, 2, 1, 2,
+		1, 2, 1, 2, 5, 2, 78, 8, 2, 10, 2, 12, 2, 81, 9, 2, 1, 2, 1, 2, 1, 3, 1,
+		3, 1, 3, 3, 3, 88, 8, 3, 1, 4, 1, 4, 1, 4, 1, 4, 1, 5, 1, 5, 1, 5, 1, 5,
+		3, 5, 98, 8, 5, 1, 5, 5, 5, 101, 8, 5, 10, 5, 12, 5, 104, 9, 5, 1, 5, 1,
+		5, 1, 6, 1, 6, 1, 6, 5, 6, 111, 8, 6, 10, 6, 12, 6, 114, 9, 6, 1, 6, 1,
+		6, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 8, 1, 8, 1, 8, 1, 8, 1, 8, 1,
+		8, 1, 9, 1, 9, 1, 9, 1, 10, 1, 10, 1, 10, 1, 10, 1, 11, 1, 11, 1, 11, 1,
+		12, 1, 12, 1, 12, 1, 12, 1, 13, 1, 13, 1, 13, 1, 13, 1, 14, 1, 14, 1, 14,
+		1, 14, 1, 15, 1, 15, 1, 15, 1, 15, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1,
+		16, 1, 17, 1, 17, 1, 18, 1, 18, 1, 18, 1, 18, 1, 18, 1, 18, 1, 19, 1, 19,
+		1, 19, 1, 19, 1, 19, 3, 19, 175, 8, 19, 1, 19, 1, 19, 1, 20, 1, 20, 1,
+		20, 1, 20, 1, 21, 1, 21, 1, 21, 1, 21, 1, 21, 1, 22, 1, 22, 1, 22, 1, 22,
+		1, 22, 1, 22, 1, 22, 1, 22, 3, 22, 196, 8, 22, 1, 22, 1, 22, 1, 22, 1,
+		22, 5, 22, 202, 8, 22, 10, 22, 12, 22, 205, 9, 22, 1, 23, 1, 23, 1, 24,
+		1, 24, 1, 24, 0, 1, 44, 25, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22,
+		24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 0, 3, 1, 0, 17, 18,
+		1, 0, 26, 29, 1, 0, 30, 35, 209, 0, 53, 1, 0, 0, 0, 2, 71, 1, 0, 0, 0,
+		4, 73, 1, 0, 0, 0, 6, 87, 1, 0, 0, 0, 8, 89, 1, 0, 0, 0, 10, 93, 1, 0,
+		0, 0, 12, 107, 1, 0, 0, 0, 14, 117, 1, 0, 0, 0, 16, 123, 1, 0, 0, 0, 18,
+		129, 1, 0, 0, 0, 20, 132, 1, 0, 0, 0, 22, 136, 1, 0, 0, 0, 24, 139, 1,
+		0, 0, 0, 26, 143, 1, 0, 0, 0, 28, 147, 1, 0, 0, 0, 30, 151, 1, 0, 0, 0,
+		32, 155, 1, 0, 0, 0, 34, 161, 1, 0, 0, 0, 36, 163, 1, 0, 0, 0, 38, 169,
+		1, 0, 0, 0, 40, 178, 1, 0, 0, 0, 42, 182, 1, 0, 0, 0, 44, 195, 1, 0, 0,
+		0, 46, 206, 1, 0, 0, 0, 48, 208, 1, 0, 0, 0, 50, 52, 3, 2, 1, 0, 51, 50,
+		1, 0, 0, 0, 52, 55, 1, 0, 0, 0, 53, 51, 1, 0, 0, 0, 53, 54, 1, 0, 0, 0,
+		54, 56, 1, 0, 0, 0, 55, 53, 1, 0, 0, 0, 56, 57, 5, 0, 0, 1, 57, 1, 1, 0,
+		0, 0, 58, 72, 3, 4, 2, 0, 59, 72, 3, 10, 5, 0, 60, 72, 3, 14, 7, 0, 61,
+		72, 3, 16, 8, 0, 62, 72, 3, 18, 9, 0, 63, 72, 3, 20, 10, 0, 64, 72, 3,
+		22, 11, 0, 65, 72, 3, 24, 12, 0, 66, 72, 3, 26, 13, 0, 67, 72, 3, 28, 14,
+		0, 68, 72, 3, 36, 18, 0, 69, 72, 3, 42, 21, 0, 70, 72, 3, 32, 16, 0, 71,
+		58, 1, 0, 0, 0, 71, 59, 1, 0, 0, 0, 71, 60, 1, 0, 0, 0, 71, 61, 1, 0, 0,
+		0, 71, 62, 1, 0, 0, 0, 71, 63, 1, 0, 0, 0, 71, 64, 1, 0, 0, 0, 71, 65,
+		1, 0, 0, 0, 71, 66, 1, 0, 0, 0, 71, 67, 1, 0, 0, 0, 71, 68, 1, 0, 0, 0,
+		71, 69, 1, 0, 0, 0, 71, 70, 1, 0, 0, 0, 72, 3, 1, 0, 0, 0, 73, 74, 5, 1,
+		0, 0, 74, 75, 5, 37, 0, 0, 75, 79, 5, 2, 0, 0, 76, 78, 3, 6, 3, 0, 77,
+		76, 1, 0, 0, 0, 78, 81, 1, 0, 0, 0, 79, 77, 1, 0, 0, 0, 79, 80, 1, 0, 0,
+		0, 80, 82, 1, 0, 0, 0, 81, 79, 1, 0, 0, 0, 82, 83, 5, 3, 0, 0, 83, 5, 1,
+		0, 0, 0, 84, 88, 3, 2, 1, 0, 85, 88, 3, 8, 4, 0, 86, 88, 3, 30, 15, 0,
+		87, 84, 1, 0, 0, 0, 87, 85, 1, 0, 0, 0, 87, 86, 1, 0, 0, 0, 88, 7, 1, 0,
+		0, 0, 89, 90, 5, 4, 0, 0, 90, 91, 5, 36, 0, 0, 91, 92, 5, 5, 0, 0, 92,
+		9, 1, 0, 0, 0, 93, 94, 5, 6, 0, 0, 94, 95, 5, 36, 0, 0, 95, 97, 5, 2, 0,
+		0, 96, 98, 3, 12, 6, 0, 97, 96, 1, 0, 0, 0, 97, 98, 1, 0, 0, 0, 98, 102,
+		1, 0, 0, 0, 99, 101, 3, 2, 1, 0, 100, 99, 1, 0, 0, 0, 101, 104, 1, 0, 0,
+		0, 102, 100, 1, 0, 0, 0, 102, 103, 1, 0, 0, 0, 103, 105, 1, 0, 0, 0, 104,
+		102, 1, 0, 0, 0, 105, 106, 5, 3, 0, 0, 106, 11, 1, 0, 0, 0, 107, 108, 3,
+		34, 17, 0, 108, 112, 5, 2, 0, 0, 109, 111, 3, 38, 19, 0, 110, 109, 1, 0,
+		0, 0, 111, 114, 1, 0, 0, 0, 112, 110, 1, 0, 0, 0, 112, 113, 1, 0, 0, 0,
+		113, 115, 1, 0, 0, 0, 114, 112, 1, 0, 0, 0, 115, 116, 5, 3, 0, 0, 116,
+		13, 1, 0, 0, 0, 117, 118, 5, 4, 0, 0, 118, 119, 5, 37, 0, 0, 119, 120,
+		5, 7, 0, 0, 120, 121, 5, 36, 0, 0, 121, 122, 5, 5, 0, 0, 122, 15, 1, 0,
+		0, 0, 123, 124, 5, 8, 0, 0, 124, 125, 5, 39, 0, 0, 125, 126, 5, 7, 0, 0,
+		126, 127, 5, 37, 0, 0, 127, 128, 5, 5, 0, 0, 128, 17, 1, 0, 0, 0, 129,
+		130, 5, 9, 0, 0, 130, 131, 5, 5, 0, 0, 131, 19, 1, 0, 0, 0, 132, 133, 5,
+		10, 0, 0, 133, 134, 5, 36, 0, 0, 134, 135, 5, 5, 0, 0, 135, 21, 1, 0, 0,
+		0, 136, 137, 5, 11, 0, 0, 137, 138, 5, 5, 0, 0, 138, 23, 1, 0, 0, 0, 139,
+		140, 5, 12, 0, 0, 140, 141, 5, 36, 0, 0, 141, 142, 5, 5, 0, 0, 142, 25,
+		1, 0, 0, 0, 143, 144, 5, 13, 0, 0, 144, 145, 5, 37, 0, 0, 145, 146, 5,
+		5, 0, 0, 146, 27, 1, 0, 0, 0, 147, 148, 5, 14, 0, 0, 148, 149, 3, 44, 22,
+		0, 149, 150, 5, 5, 0, 0, 150, 29, 1, 0, 0, 0, 151, 152, 5, 15, 0, 0, 152,
+		153, 5, 37, 0, 0, 153, 154, 5, 5, 0, 0, 154, 31, 1, 0, 0, 0, 155, 156,
+		5, 16, 0, 0, 156, 157, 5, 37, 0, 0, 157, 158, 7, 0, 0, 0, 158, 159, 3,
+		44, 22, 0, 159, 160, 5, 5, 0, 0, 160, 33, 1, 0, 0, 0, 161, 162, 5, 19,
+		0, 0, 162, 35, 1, 0, 0, 0, 163, 164, 5, 20, 0, 0, 164, 165, 5, 37, 0, 0,
+		165, 166, 5, 21, 0, 0, 166, 167, 3, 44, 22, 0, 167, 168, 5, 5, 0, 0, 168,
+		37, 1, 0, 0, 0, 169, 170, 5, 22, 0, 0, 170, 171, 5, 37, 0, 0, 171, 172,
+		5, 21, 0, 0, 172, 174, 5, 38, 0, 0, 173, 175, 3, 40, 20, 0, 174, 173, 1,
+		0, 0, 0, 174, 175, 1, 0, 0, 0, 175, 176, 1, 0, 0, 0, 176, 177, 5, 5, 0,
+		0, 177, 39, 1, 0, 0, 0, 178, 179, 5, 23, 0, 0, 179, 180, 3, 48, 24, 0,
+		180, 181, 5, 38, 0, 0, 181, 41, 1, 0, 0, 0, 182, 183, 5, 37, 0, 0, 183,
+		184, 5, 21, 0, 0, 184, 185, 3, 44, 22, 0, 185, 186, 5, 5, 0, 0, 186, 43,
+		1, 0, 0, 0, 187, 188, 6, 22, -1, 0, 188, 189, 5, 24, 0, 0, 189, 190, 3,
+		44, 22, 0, 190, 191, 5, 25, 0, 0, 191, 196, 1, 0, 0, 0, 192, 196, 5, 37,
+		0, 0, 193, 196, 5, 38, 0, 0, 194, 196, 5, 39, 0, 0, 195, 187, 1, 0, 0,
+		0, 195, 192, 1, 0, 0, 0, 195, 193, 1, 0, 0, 0, 195, 194, 1, 0, 0, 0, 196,
+		203, 1, 0, 0, 0, 197, 198, 10, 5, 0, 0, 198, 199, 3, 46, 23, 0, 199, 200,
+		3, 44, 22, 6, 200, 202, 1, 0, 0, 0, 201, 197, 1, 0, 0, 0, 202, 205, 1,
+		0, 0, 0, 203, 201, 1, 0, 0, 0, 203, 204, 1, 0, 0, 0, 204, 45, 1, 0, 0,
+		0, 205, 203, 1, 0, 0, 0, 206, 207, 7, 1, 0, 0, 207, 47, 1, 0, 0, 0, 208,
+		209, 7, 2, 0, 0, 209, 49, 1, 0, 0, 0, 10, 53, 71, 79, 87, 97, 102, 112,
+		174, 195, 203,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -213,13 +213,12 @@ const (
 	AmbientCalculusParserT__32     = 33
 	AmbientCalculusParserT__33     = 34
 	AmbientCalculusParserT__34     = 35
-	AmbientCalculusParserT__35     = 36
-	AmbientCalculusParserAMBIENTID = 37
-	AmbientCalculusParserID        = 38
-	AmbientCalculusParserINT       = 39
-	AmbientCalculusParserSTRING    = 40
-	AmbientCalculusParserWS        = 41
-	AmbientCalculusParserCOMMENT   = 42
+	AmbientCalculusParserAMBIENTID = 36
+	AmbientCalculusParserID        = 37
+	AmbientCalculusParserINT       = 38
+	AmbientCalculusParserSTRING    = 39
+	AmbientCalculusParserWS        = 40
+	AmbientCalculusParserCOMMENT   = 41
 )
 
 // AmbientCalculusParser rules.
@@ -232,22 +231,23 @@ const (
 	AmbientCalculusParserRULE_ambientDeclaration            = 5
 	AmbientCalculusParserRULE_conditions                    = 6
 	AmbientCalculusParserRULE_movementStatement             = 7
-	AmbientCalculusParserRULE_communicationStatement        = 8
-	AmbientCalculusParserRULE_inStatement                   = 9
-	AmbientCalculusParserRULE_outStatement                  = 10
-	AmbientCalculusParserRULE_openStatement                 = 11
-	AmbientCalculusParserRULE_callStatement                 = 12
-	AmbientCalculusParserRULE_printStatement                = 13
-	AmbientCalculusParserRULE_printConditionStatement       = 14
-	AmbientCalculusParserRULE_modifyConditionStatement      = 15
-	AmbientCalculusParserRULE_conditionsBlock               = 16
-	AmbientCalculusParserRULE_variableDeclaration           = 17
-	AmbientCalculusParserRULE_conditionsVariableDeclaration = 18
-	AmbientCalculusParserRULE_restriction                   = 19
-	AmbientCalculusParserRULE_assignmentStatement           = 20
-	AmbientCalculusParserRULE_expression                    = 21
-	AmbientCalculusParserRULE_operator                      = 22
-	AmbientCalculusParserRULE_comparator                    = 23
+	AmbientCalculusParserRULE_sendStatement                 = 8
+	AmbientCalculusParserRULE_receiveStatement              = 9
+	AmbientCalculusParserRULE_inStatement                   = 10
+	AmbientCalculusParserRULE_outStatement                  = 11
+	AmbientCalculusParserRULE_openStatement                 = 12
+	AmbientCalculusParserRULE_callStatement                 = 13
+	AmbientCalculusParserRULE_printStatement                = 14
+	AmbientCalculusParserRULE_printConditionStatement       = 15
+	AmbientCalculusParserRULE_modifyConditionStatement      = 16
+	AmbientCalculusParserRULE_conditionsBlock               = 17
+	AmbientCalculusParserRULE_variableDeclaration           = 18
+	AmbientCalculusParserRULE_conditionsVariableDeclaration = 19
+	AmbientCalculusParserRULE_restriction                   = 20
+	AmbientCalculusParserRULE_assignmentStatement           = 21
+	AmbientCalculusParserRULE_expression                    = 22
+	AmbientCalculusParserRULE_operator                      = 23
+	AmbientCalculusParserRULE_comparator                    = 24
 )
 
 // IProgramContext is an interface to support dynamic dispatch.
@@ -379,20 +379,20 @@ func (p *AmbientCalculusParser) Program() (localctx IProgramContext) {
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(51)
+	p.SetState(53)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&274880199506) != 0 {
+	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&137440100178) != 0 {
 		{
-			p.SetState(48)
+			p.SetState(50)
 			p.Statement()
 		}
 
-		p.SetState(53)
+		p.SetState(55)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -400,7 +400,7 @@ func (p *AmbientCalculusParser) Program() (localctx IProgramContext) {
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(54)
+		p.SetState(56)
 		p.Match(AmbientCalculusParserEOF)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -432,7 +432,8 @@ type IStatementContext interface {
 	ProcessDeclaration() IProcessDeclarationContext
 	AmbientDeclaration() IAmbientDeclarationContext
 	MovementStatement() IMovementStatementContext
-	CommunicationStatement() ICommunicationStatementContext
+	SendStatement() ISendStatementContext
+	ReceiveStatement() IReceiveStatementContext
 	InStatement() IInStatementContext
 	OutStatement() IOutStatementContext
 	OpenStatement() IOpenStatementContext
@@ -526,10 +527,10 @@ func (s *StatementContext) MovementStatement() IMovementStatementContext {
 	return t.(IMovementStatementContext)
 }
 
-func (s *StatementContext) CommunicationStatement() ICommunicationStatementContext {
+func (s *StatementContext) SendStatement() ISendStatementContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(ICommunicationStatementContext); ok {
+		if _, ok := ctx.(ISendStatementContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -539,7 +540,23 @@ func (s *StatementContext) CommunicationStatement() ICommunicationStatementConte
 		return nil
 	}
 
-	return t.(ICommunicationStatementContext)
+	return t.(ISendStatementContext)
+}
+
+func (s *StatementContext) ReceiveStatement() IReceiveStatementContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IReceiveStatementContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IReceiveStatementContext)
 }
 
 func (s *StatementContext) InStatement() IInStatementContext {
@@ -703,7 +720,7 @@ func (s *StatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 func (p *AmbientCalculusParser) Statement() (localctx IStatementContext) {
 	localctx = NewStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 2, AmbientCalculusParserRULE_statement)
-	p.SetState(68)
+	p.SetState(71)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -713,84 +730,91 @@ func (p *AmbientCalculusParser) Statement() (localctx IStatementContext) {
 	case AmbientCalculusParserT__0:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(56)
+			p.SetState(58)
 			p.ProcessDeclaration()
 		}
 
 	case AmbientCalculusParserT__5:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(57)
+			p.SetState(59)
 			p.AmbientDeclaration()
 		}
 
 	case AmbientCalculusParserT__3:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(58)
+			p.SetState(60)
 			p.MovementStatement()
 		}
 
-	case AmbientCalculusParserT__7, AmbientCalculusParserT__8:
+	case AmbientCalculusParserT__7:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(59)
-			p.CommunicationStatement()
+			p.SetState(61)
+			p.SendStatement()
 		}
 
-	case AmbientCalculusParserT__10:
+	case AmbientCalculusParserT__8:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(60)
+			p.SetState(62)
+			p.ReceiveStatement()
+		}
+
+	case AmbientCalculusParserT__9:
+		p.EnterOuterAlt(localctx, 6)
+		{
+			p.SetState(63)
 			p.InStatement()
 		}
 
-	case AmbientCalculusParserT__11:
-		p.EnterOuterAlt(localctx, 6)
+	case AmbientCalculusParserT__10:
+		p.EnterOuterAlt(localctx, 7)
 		{
-			p.SetState(61)
+			p.SetState(64)
 			p.OutStatement()
 		}
 
-	case AmbientCalculusParserT__12:
-		p.EnterOuterAlt(localctx, 7)
+	case AmbientCalculusParserT__11:
+		p.EnterOuterAlt(localctx, 8)
 		{
-			p.SetState(62)
+			p.SetState(65)
 			p.OpenStatement()
 		}
 
-	case AmbientCalculusParserT__13:
-		p.EnterOuterAlt(localctx, 8)
+	case AmbientCalculusParserT__12:
+		p.EnterOuterAlt(localctx, 9)
 		{
-			p.SetState(63)
+			p.SetState(66)
 			p.CallStatement()
 		}
 
-	case AmbientCalculusParserT__14:
-		p.EnterOuterAlt(localctx, 9)
+	case AmbientCalculusParserT__13:
+		p.EnterOuterAlt(localctx, 10)
 		{
-			p.SetState(64)
+			p.SetState(67)
 			p.PrintStatement()
 		}
 
-	case AmbientCalculusParserT__20:
-		p.EnterOuterAlt(localctx, 10)
+	case AmbientCalculusParserT__19:
+		p.EnterOuterAlt(localctx, 11)
 		{
-			p.SetState(65)
+			p.SetState(68)
 			p.VariableDeclaration()
 		}
 
 	case AmbientCalculusParserID:
-		p.EnterOuterAlt(localctx, 11)
+		p.EnterOuterAlt(localctx, 12)
 		{
-			p.SetState(66)
+			p.SetState(69)
 			p.AssignmentStatement()
 		}
 
-	case AmbientCalculusParserT__16:
-		p.EnterOuterAlt(localctx, 12)
+	case AmbientCalculusParserT__15:
+		p.EnterOuterAlt(localctx, 13)
 		{
-			p.SetState(67)
+			p.SetState(70)
 			p.ModifyConditionStatement()
 		}
 
@@ -942,7 +966,7 @@ func (p *AmbientCalculusParser) ProcessDeclaration() (localctx IProcessDeclarati
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(70)
+		p.SetState(73)
 		p.Match(AmbientCalculusParserT__0)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -950,7 +974,7 @@ func (p *AmbientCalculusParser) ProcessDeclaration() (localctx IProcessDeclarati
 		}
 	}
 	{
-		p.SetState(71)
+		p.SetState(74)
 		p.Match(AmbientCalculusParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -958,27 +982,27 @@ func (p *AmbientCalculusParser) ProcessDeclaration() (localctx IProcessDeclarati
 		}
 	}
 	{
-		p.SetState(72)
+		p.SetState(75)
 		p.Match(AmbientCalculusParserT__1)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(76)
+	p.SetState(79)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&274880265042) != 0 {
+	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&137440132946) != 0 {
 		{
-			p.SetState(73)
+			p.SetState(76)
 			p.ProcessStatement()
 		}
 
-		p.SetState(78)
+		p.SetState(81)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -986,7 +1010,7 @@ func (p *AmbientCalculusParser) ProcessDeclaration() (localctx IProcessDeclarati
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(79)
+		p.SetState(82)
 		p.Match(AmbientCalculusParserT__2)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1136,7 +1160,7 @@ func (s *ProcessStatementContext) Accept(visitor antlr.ParseTreeVisitor) interfa
 func (p *AmbientCalculusParser) ProcessStatement() (localctx IProcessStatementContext) {
 	localctx = NewProcessStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 6, AmbientCalculusParserRULE_processStatement)
-	p.SetState(84)
+	p.SetState(87)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -1146,21 +1170,21 @@ func (p *AmbientCalculusParser) ProcessStatement() (localctx IProcessStatementCo
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(81)
+			p.SetState(84)
 			p.Statement()
 		}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(82)
+			p.SetState(85)
 			p.MoveStatement()
 		}
 
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(83)
+			p.SetState(86)
 			p.PrintConditionStatement()
 		}
 
@@ -1266,7 +1290,7 @@ func (p *AmbientCalculusParser) MoveStatement() (localctx IMoveStatementContext)
 	p.EnterRule(localctx, 8, AmbientCalculusParserRULE_moveStatement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(86)
+		p.SetState(89)
 		p.Match(AmbientCalculusParserT__3)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1274,7 +1298,7 @@ func (p *AmbientCalculusParser) MoveStatement() (localctx IMoveStatementContext)
 		}
 	}
 	{
-		p.SetState(87)
+		p.SetState(90)
 		p.Match(AmbientCalculusParserAMBIENTID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1282,7 +1306,7 @@ func (p *AmbientCalculusParser) MoveStatement() (localctx IMoveStatementContext)
 		}
 	}
 	{
-		p.SetState(88)
+		p.SetState(91)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1450,7 +1474,7 @@ func (p *AmbientCalculusParser) AmbientDeclaration() (localctx IAmbientDeclarati
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(90)
+		p.SetState(93)
 		p.Match(AmbientCalculusParserT__5)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1458,7 +1482,7 @@ func (p *AmbientCalculusParser) AmbientDeclaration() (localctx IAmbientDeclarati
 		}
 	}
 	{
-		p.SetState(91)
+		p.SetState(94)
 		p.Match(AmbientCalculusParserAMBIENTID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1466,41 +1490,41 @@ func (p *AmbientCalculusParser) AmbientDeclaration() (localctx IAmbientDeclarati
 		}
 	}
 	{
-		p.SetState(92)
+		p.SetState(95)
 		p.Match(AmbientCalculusParserT__1)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(94)
+	p.SetState(97)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	if _la == AmbientCalculusParserT__19 {
+	if _la == AmbientCalculusParserT__18 {
 		{
-			p.SetState(93)
+			p.SetState(96)
 			p.Conditions()
 		}
 
 	}
-	p.SetState(99)
+	p.SetState(102)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&274880199506) != 0 {
+	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&137440100178) != 0 {
 		{
-			p.SetState(96)
+			p.SetState(99)
 			p.Statement()
 		}
 
-		p.SetState(101)
+		p.SetState(104)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -1508,7 +1532,7 @@ func (p *AmbientCalculusParser) AmbientDeclaration() (localctx IAmbientDeclarati
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(102)
+		p.SetState(105)
 		p.Match(AmbientCalculusParserT__2)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1671,31 +1695,31 @@ func (p *AmbientCalculusParser) Conditions() (localctx IConditionsContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(104)
+		p.SetState(107)
 		p.ConditionsBlock()
 	}
 	{
-		p.SetState(105)
+		p.SetState(108)
 		p.Match(AmbientCalculusParserT__1)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(109)
+	p.SetState(112)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for _la == AmbientCalculusParserT__22 {
+	for _la == AmbientCalculusParserT__21 {
 		{
-			p.SetState(106)
+			p.SetState(109)
 			p.ConditionsVariableDeclaration()
 		}
 
-		p.SetState(111)
+		p.SetState(114)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -1703,7 +1727,7 @@ func (p *AmbientCalculusParser) Conditions() (localctx IConditionsContext) {
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(112)
+		p.SetState(115)
 		p.Match(AmbientCalculusParserT__2)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1814,7 +1838,7 @@ func (p *AmbientCalculusParser) MovementStatement() (localctx IMovementStatement
 	p.EnterRule(localctx, 14, AmbientCalculusParserRULE_movementStatement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(114)
+		p.SetState(117)
 		p.Match(AmbientCalculusParserT__3)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1822,7 +1846,7 @@ func (p *AmbientCalculusParser) MovementStatement() (localctx IMovementStatement
 		}
 	}
 	{
-		p.SetState(115)
+		p.SetState(118)
 		p.Match(AmbientCalculusParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1830,7 +1854,7 @@ func (p *AmbientCalculusParser) MovementStatement() (localctx IMovementStatement
 		}
 	}
 	{
-		p.SetState(116)
+		p.SetState(119)
 		p.Match(AmbientCalculusParserT__6)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1838,7 +1862,7 @@ func (p *AmbientCalculusParser) MovementStatement() (localctx IMovementStatement
 		}
 	}
 	{
-		p.SetState(117)
+		p.SetState(120)
 		p.Match(AmbientCalculusParserAMBIENTID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1846,7 +1870,7 @@ func (p *AmbientCalculusParser) MovementStatement() (localctx IMovementStatement
 		}
 	}
 	{
-		p.SetState(118)
+		p.SetState(121)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1867,203 +1891,239 @@ errorExit:
 	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
-// ICommunicationStatementContext is an interface to support dynamic dispatch.
-type ICommunicationStatementContext interface {
+// ISendStatementContext is an interface to support dynamic dispatch.
+type ISendStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
 	// Getter signatures
-	Expression() IExpressionContext
-	AllID() []antlr.TerminalNode
-	ID(i int) antlr.TerminalNode
+	STRING() antlr.TerminalNode
+	ID() antlr.TerminalNode
 
-	// IsCommunicationStatementContext differentiates from other interfaces.
-	IsCommunicationStatementContext()
+	// IsSendStatementContext differentiates from other interfaces.
+	IsSendStatementContext()
 }
 
-type CommunicationStatementContext struct {
+type SendStatementContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyCommunicationStatementContext() *CommunicationStatementContext {
-	var p = new(CommunicationStatementContext)
+func NewEmptySendStatementContext() *SendStatementContext {
+	var p = new(SendStatementContext)
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = AmbientCalculusParserRULE_communicationStatement
+	p.RuleIndex = AmbientCalculusParserRULE_sendStatement
 	return p
 }
 
-func InitEmptyCommunicationStatementContext(p *CommunicationStatementContext) {
+func InitEmptySendStatementContext(p *SendStatementContext) {
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = AmbientCalculusParserRULE_communicationStatement
+	p.RuleIndex = AmbientCalculusParserRULE_sendStatement
 }
 
-func (*CommunicationStatementContext) IsCommunicationStatementContext() {}
+func (*SendStatementContext) IsSendStatementContext() {}
 
-func NewCommunicationStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *CommunicationStatementContext {
-	var p = new(CommunicationStatementContext)
+func NewSendStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *SendStatementContext {
+	var p = new(SendStatementContext)
 
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = AmbientCalculusParserRULE_communicationStatement
+	p.RuleIndex = AmbientCalculusParserRULE_sendStatement
 
 	return p
 }
 
-func (s *CommunicationStatementContext) GetParser() antlr.Parser { return s.parser }
+func (s *SendStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *CommunicationStatementContext) Expression() IExpressionContext {
-	var t antlr.RuleContext
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IExpressionContext); ok {
-			t = ctx.(antlr.RuleContext)
-			break
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IExpressionContext)
+func (s *SendStatementContext) STRING() antlr.TerminalNode {
+	return s.GetToken(AmbientCalculusParserSTRING, 0)
 }
 
-func (s *CommunicationStatementContext) AllID() []antlr.TerminalNode {
-	return s.GetTokens(AmbientCalculusParserID)
+func (s *SendStatementContext) ID() antlr.TerminalNode {
+	return s.GetToken(AmbientCalculusParserID, 0)
 }
 
-func (s *CommunicationStatementContext) ID(i int) antlr.TerminalNode {
-	return s.GetToken(AmbientCalculusParserID, i)
-}
-
-func (s *CommunicationStatementContext) GetRuleContext() antlr.RuleContext {
+func (s *SendStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *CommunicationStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *SendStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *CommunicationStatementContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *SendStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AmbientCalculusListener); ok {
-		listenerT.EnterCommunicationStatement(s)
+		listenerT.EnterSendStatement(s)
 	}
 }
 
-func (s *CommunicationStatementContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *SendStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AmbientCalculusListener); ok {
-		listenerT.ExitCommunicationStatement(s)
+		listenerT.ExitSendStatement(s)
 	}
 }
 
-func (s *CommunicationStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *SendStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case AmbientCalculusVisitor:
-		return t.VisitCommunicationStatement(s)
+		return t.VisitSendStatement(s)
 
 	default:
 		return t.VisitChildren(s)
 	}
 }
 
-func (p *AmbientCalculusParser) CommunicationStatement() (localctx ICommunicationStatementContext) {
-	localctx = NewCommunicationStatementContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 16, AmbientCalculusParserRULE_communicationStatement)
-	p.SetState(131)
-	p.GetErrorHandler().Sync(p)
-	if p.HasError() {
-		goto errorExit
+func (p *AmbientCalculusParser) SendStatement() (localctx ISendStatementContext) {
+	localctx = NewSendStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 16, AmbientCalculusParserRULE_sendStatement)
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(123)
+		p.Match(AmbientCalculusParserT__7)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(124)
+		p.Match(AmbientCalculusParserSTRING)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(125)
+		p.Match(AmbientCalculusParserT__6)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(126)
+		p.Match(AmbientCalculusParserID)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(127)
+		p.Match(AmbientCalculusParserT__4)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
 	}
 
-	switch p.GetTokenStream().LA(1) {
-	case AmbientCalculusParserT__7:
-		p.EnterOuterAlt(localctx, 1)
-		{
-			p.SetState(120)
-			p.Match(AmbientCalculusParserT__7)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(121)
-			p.expression(0)
-		}
-		{
-			p.SetState(122)
-			p.Match(AmbientCalculusParserT__6)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(123)
-			p.Match(AmbientCalculusParserID)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(124)
-			p.Match(AmbientCalculusParserT__4)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
 
-	case AmbientCalculusParserT__8:
-		p.EnterOuterAlt(localctx, 2)
-		{
-			p.SetState(126)
-			p.Match(AmbientCalculusParserT__8)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(127)
-			p.Match(AmbientCalculusParserID)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(128)
-			p.Match(AmbientCalculusParserT__9)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(129)
-			p.Match(AmbientCalculusParserID)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(130)
-			p.Match(AmbientCalculusParserT__4)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
+// IReceiveStatementContext is an interface to support dynamic dispatch.
+type IReceiveStatementContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+	// IsReceiveStatementContext differentiates from other interfaces.
+	IsReceiveStatementContext()
+}
+
+type ReceiveStatementContext struct {
+	antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyReceiveStatementContext() *ReceiveStatementContext {
+	var p = new(ReceiveStatementContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = AmbientCalculusParserRULE_receiveStatement
+	return p
+}
+
+func InitEmptyReceiveStatementContext(p *ReceiveStatementContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = AmbientCalculusParserRULE_receiveStatement
+}
+
+func (*ReceiveStatementContext) IsReceiveStatementContext() {}
+
+func NewReceiveStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *ReceiveStatementContext {
+	var p = new(ReceiveStatementContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = AmbientCalculusParserRULE_receiveStatement
+
+	return p
+}
+
+func (s *ReceiveStatementContext) GetParser() antlr.Parser { return s.parser }
+func (s *ReceiveStatementContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *ReceiveStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *ReceiveStatementContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(AmbientCalculusListener); ok {
+		listenerT.EnterReceiveStatement(s)
+	}
+}
+
+func (s *ReceiveStatementContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(AmbientCalculusListener); ok {
+		listenerT.ExitReceiveStatement(s)
+	}
+}
+
+func (s *ReceiveStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AmbientCalculusVisitor:
+		return t.VisitReceiveStatement(s)
 
 	default:
-		p.SetError(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
-		goto errorExit
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *AmbientCalculusParser) ReceiveStatement() (localctx IReceiveStatementContext) {
+	localctx = NewReceiveStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 18, AmbientCalculusParserRULE_receiveStatement)
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(129)
+		p.Match(AmbientCalculusParserT__8)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(130)
+		p.Match(AmbientCalculusParserT__4)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
 	}
 
 errorExit:
@@ -2161,18 +2221,18 @@ func (s *InStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} 
 
 func (p *AmbientCalculusParser) InStatement() (localctx IInStatementContext) {
 	localctx = NewInStatementContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 18, AmbientCalculusParserRULE_inStatement)
+	p.EnterRule(localctx, 20, AmbientCalculusParserRULE_inStatement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(133)
-		p.Match(AmbientCalculusParserT__10)
+		p.SetState(132)
+		p.Match(AmbientCalculusParserT__9)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(134)
+		p.SetState(133)
 		p.Match(AmbientCalculusParserAMBIENTID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2180,7 +2240,7 @@ func (p *AmbientCalculusParser) InStatement() (localctx IInStatementContext) {
 		}
 	}
 	{
-		p.SetState(135)
+		p.SetState(134)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2274,18 +2334,18 @@ func (s *OutStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{}
 
 func (p *AmbientCalculusParser) OutStatement() (localctx IOutStatementContext) {
 	localctx = NewOutStatementContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 20, AmbientCalculusParserRULE_outStatement)
+	p.EnterRule(localctx, 22, AmbientCalculusParserRULE_outStatement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(137)
-		p.Match(AmbientCalculusParserT__11)
+		p.SetState(136)
+		p.Match(AmbientCalculusParserT__10)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(138)
+		p.SetState(137)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2388,18 +2448,18 @@ func (s *OpenStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{
 
 func (p *AmbientCalculusParser) OpenStatement() (localctx IOpenStatementContext) {
 	localctx = NewOpenStatementContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 22, AmbientCalculusParserRULE_openStatement)
+	p.EnterRule(localctx, 24, AmbientCalculusParserRULE_openStatement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(140)
-		p.Match(AmbientCalculusParserT__12)
+		p.SetState(139)
+		p.Match(AmbientCalculusParserT__11)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(141)
+		p.SetState(140)
 		p.Match(AmbientCalculusParserAMBIENTID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2407,7 +2467,7 @@ func (p *AmbientCalculusParser) OpenStatement() (localctx IOpenStatementContext)
 		}
 	}
 	{
-		p.SetState(142)
+		p.SetState(141)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2510,18 +2570,18 @@ func (s *CallStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{
 
 func (p *AmbientCalculusParser) CallStatement() (localctx ICallStatementContext) {
 	localctx = NewCallStatementContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 24, AmbientCalculusParserRULE_callStatement)
+	p.EnterRule(localctx, 26, AmbientCalculusParserRULE_callStatement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(144)
-		p.Match(AmbientCalculusParserT__13)
+		p.SetState(143)
+		p.Match(AmbientCalculusParserT__12)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(145)
+		p.SetState(144)
 		p.Match(AmbientCalculusParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2529,7 +2589,7 @@ func (p *AmbientCalculusParser) CallStatement() (localctx ICallStatementContext)
 		}
 	}
 	{
-		p.SetState(146)
+		p.SetState(145)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2644,22 +2704,22 @@ func (s *PrintStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface
 
 func (p *AmbientCalculusParser) PrintStatement() (localctx IPrintStatementContext) {
 	localctx = NewPrintStatementContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 26, AmbientCalculusParserRULE_printStatement)
+	p.EnterRule(localctx, 28, AmbientCalculusParserRULE_printStatement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(148)
-		p.Match(AmbientCalculusParserT__14)
+		p.SetState(147)
+		p.Match(AmbientCalculusParserT__13)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(149)
+		p.SetState(148)
 		p.expression(0)
 	}
 	{
-		p.SetState(150)
+		p.SetState(149)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2762,18 +2822,18 @@ func (s *PrintConditionStatementContext) Accept(visitor antlr.ParseTreeVisitor) 
 
 func (p *AmbientCalculusParser) PrintConditionStatement() (localctx IPrintConditionStatementContext) {
 	localctx = NewPrintConditionStatementContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 28, AmbientCalculusParserRULE_printConditionStatement)
+	p.EnterRule(localctx, 30, AmbientCalculusParserRULE_printConditionStatement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(152)
-		p.Match(AmbientCalculusParserT__15)
+		p.SetState(151)
+		p.Match(AmbientCalculusParserT__14)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(153)
+		p.SetState(152)
 		p.Match(AmbientCalculusParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2781,7 +2841,7 @@ func (p *AmbientCalculusParser) PrintConditionStatement() (localctx IPrintCondit
 		}
 	}
 	{
-		p.SetState(154)
+		p.SetState(153)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2912,20 +2972,20 @@ func (s *ModifyConditionStatementContext) Accept(visitor antlr.ParseTreeVisitor)
 
 func (p *AmbientCalculusParser) ModifyConditionStatement() (localctx IModifyConditionStatementContext) {
 	localctx = NewModifyConditionStatementContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 30, AmbientCalculusParserRULE_modifyConditionStatement)
+	p.EnterRule(localctx, 32, AmbientCalculusParserRULE_modifyConditionStatement)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(156)
-		p.Match(AmbientCalculusParserT__16)
+		p.SetState(155)
+		p.Match(AmbientCalculusParserT__15)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(157)
+		p.SetState(156)
 		p.Match(AmbientCalculusParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2933,7 +2993,7 @@ func (p *AmbientCalculusParser) ModifyConditionStatement() (localctx IModifyCond
 		}
 	}
 	{
-		p.SetState(158)
+		p.SetState(157)
 
 		var _lt = p.GetTokenStream().LT(1)
 
@@ -2941,7 +3001,7 @@ func (p *AmbientCalculusParser) ModifyConditionStatement() (localctx IModifyCond
 
 		_la = p.GetTokenStream().LA(1)
 
-		if !(_la == AmbientCalculusParserT__17 || _la == AmbientCalculusParserT__18) {
+		if !(_la == AmbientCalculusParserT__16 || _la == AmbientCalculusParserT__17) {
 			var _ri = p.GetErrorHandler().RecoverInline(p)
 
 			localctx.(*ModifyConditionStatementContext).op = _ri
@@ -2951,11 +3011,11 @@ func (p *AmbientCalculusParser) ModifyConditionStatement() (localctx IModifyCond
 		}
 	}
 	{
-		p.SetState(159)
+		p.SetState(158)
 		p.expression(0)
 	}
 	{
-		p.SetState(160)
+		p.SetState(159)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3049,11 +3109,11 @@ func (s *ConditionsBlockContext) Accept(visitor antlr.ParseTreeVisitor) interfac
 
 func (p *AmbientCalculusParser) ConditionsBlock() (localctx IConditionsBlockContext) {
 	localctx = NewConditionsBlockContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 32, AmbientCalculusParserRULE_conditionsBlock)
+	p.EnterRule(localctx, 34, AmbientCalculusParserRULE_conditionsBlock)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(162)
-		p.Match(AmbientCalculusParserT__19)
+		p.SetState(161)
+		p.Match(AmbientCalculusParserT__18)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -3172,18 +3232,18 @@ func (s *VariableDeclarationContext) Accept(visitor antlr.ParseTreeVisitor) inte
 
 func (p *AmbientCalculusParser) VariableDeclaration() (localctx IVariableDeclarationContext) {
 	localctx = NewVariableDeclarationContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 34, AmbientCalculusParserRULE_variableDeclaration)
+	p.EnterRule(localctx, 36, AmbientCalculusParserRULE_variableDeclaration)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(164)
-		p.Match(AmbientCalculusParserT__20)
+		p.SetState(163)
+		p.Match(AmbientCalculusParserT__19)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(165)
+		p.SetState(164)
 		p.Match(AmbientCalculusParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3191,19 +3251,19 @@ func (p *AmbientCalculusParser) VariableDeclaration() (localctx IVariableDeclara
 		}
 	}
 	{
-		p.SetState(166)
-		p.Match(AmbientCalculusParserT__21)
+		p.SetState(165)
+		p.Match(AmbientCalculusParserT__20)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(167)
+		p.SetState(166)
 		p.expression(0)
 	}
 	{
-		p.SetState(168)
+		p.SetState(167)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3328,28 +3388,12 @@ func (s *ConditionsVariableDeclarationContext) Accept(visitor antlr.ParseTreeVis
 
 func (p *AmbientCalculusParser) ConditionsVariableDeclaration() (localctx IConditionsVariableDeclarationContext) {
 	localctx = NewConditionsVariableDeclarationContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 36, AmbientCalculusParserRULE_conditionsVariableDeclaration)
+	p.EnterRule(localctx, 38, AmbientCalculusParserRULE_conditionsVariableDeclaration)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(170)
-		p.Match(AmbientCalculusParserT__22)
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
-	}
-	{
-		p.SetState(171)
-		p.Match(AmbientCalculusParserID)
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
-	}
-	{
-		p.SetState(172)
+		p.SetState(169)
 		p.Match(AmbientCalculusParserT__21)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3357,29 +3401,45 @@ func (p *AmbientCalculusParser) ConditionsVariableDeclaration() (localctx ICondi
 		}
 	}
 	{
-		p.SetState(173)
+		p.SetState(170)
+		p.Match(AmbientCalculusParserID)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(171)
+		p.Match(AmbientCalculusParserT__20)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(172)
 		p.Match(AmbientCalculusParserINT)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(175)
+	p.SetState(174)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	if _la == AmbientCalculusParserT__23 {
+	if _la == AmbientCalculusParserT__22 {
 		{
-			p.SetState(174)
+			p.SetState(173)
 			p.Restriction()
 		}
 
 	}
 	{
-		p.SetState(177)
+		p.SetState(176)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3499,22 +3559,22 @@ func (s *RestrictionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} 
 
 func (p *AmbientCalculusParser) Restriction() (localctx IRestrictionContext) {
 	localctx = NewRestrictionContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 38, AmbientCalculusParserRULE_restriction)
+	p.EnterRule(localctx, 40, AmbientCalculusParserRULE_restriction)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(179)
-		p.Match(AmbientCalculusParserT__23)
+		p.SetState(178)
+		p.Match(AmbientCalculusParserT__22)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(180)
+		p.SetState(179)
 		p.Comparator()
 	}
 	{
-		p.SetState(181)
+		p.SetState(180)
 		p.Match(AmbientCalculusParserINT)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3634,10 +3694,10 @@ func (s *AssignmentStatementContext) Accept(visitor antlr.ParseTreeVisitor) inte
 
 func (p *AmbientCalculusParser) AssignmentStatement() (localctx IAssignmentStatementContext) {
 	localctx = NewAssignmentStatementContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 40, AmbientCalculusParserRULE_assignmentStatement)
+	p.EnterRule(localctx, 42, AmbientCalculusParserRULE_assignmentStatement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(183)
+		p.SetState(182)
 		p.Match(AmbientCalculusParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3645,19 +3705,19 @@ func (p *AmbientCalculusParser) AssignmentStatement() (localctx IAssignmentState
 		}
 	}
 	{
-		p.SetState(184)
-		p.Match(AmbientCalculusParserT__21)
+		p.SetState(183)
+		p.Match(AmbientCalculusParserT__20)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(185)
+		p.SetState(184)
 		p.expression(0)
 	}
 	{
-		p.SetState(186)
+		p.SetState(185)
 		p.Match(AmbientCalculusParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3839,34 +3899,34 @@ func (p *AmbientCalculusParser) expression(_p int) (localctx IExpressionContext)
 	localctx = NewExpressionContext(p, p.GetParserRuleContext(), _parentState)
 	var _prevctx IExpressionContext = localctx
 	var _ antlr.ParserRuleContext = _prevctx // TODO: To prevent unused variable warning.
-	_startState := 42
-	p.EnterRecursionRule(localctx, 42, AmbientCalculusParserRULE_expression, _p)
+	_startState := 44
+	p.EnterRecursionRule(localctx, 44, AmbientCalculusParserRULE_expression, _p)
 	var _alt int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(196)
+	p.SetState(195)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 
 	switch p.GetTokenStream().LA(1) {
-	case AmbientCalculusParserT__24:
+	case AmbientCalculusParserT__23:
 		{
-			p.SetState(189)
-			p.Match(AmbientCalculusParserT__24)
+			p.SetState(188)
+			p.Match(AmbientCalculusParserT__23)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
 			}
 		}
 		{
-			p.SetState(190)
+			p.SetState(189)
 			p.expression(0)
 		}
 		{
-			p.SetState(191)
-			p.Match(AmbientCalculusParserT__25)
+			p.SetState(190)
+			p.Match(AmbientCalculusParserT__24)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
@@ -3875,7 +3935,7 @@ func (p *AmbientCalculusParser) expression(_p int) (localctx IExpressionContext)
 
 	case AmbientCalculusParserID:
 		{
-			p.SetState(193)
+			p.SetState(192)
 			p.Match(AmbientCalculusParserID)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -3885,7 +3945,7 @@ func (p *AmbientCalculusParser) expression(_p int) (localctx IExpressionContext)
 
 	case AmbientCalculusParserINT:
 		{
-			p.SetState(194)
+			p.SetState(193)
 			p.Match(AmbientCalculusParserINT)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -3895,7 +3955,7 @@ func (p *AmbientCalculusParser) expression(_p int) (localctx IExpressionContext)
 
 	case AmbientCalculusParserSTRING:
 		{
-			p.SetState(195)
+			p.SetState(194)
 			p.Match(AmbientCalculusParserSTRING)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -3908,12 +3968,12 @@ func (p *AmbientCalculusParser) expression(_p int) (localctx IExpressionContext)
 		goto errorExit
 	}
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(204)
+	p.SetState(203)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
-	_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 10, p.GetParserRuleContext())
+	_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 9, p.GetParserRuleContext())
 	if p.HasError() {
 		goto errorExit
 	}
@@ -3925,28 +3985,28 @@ func (p *AmbientCalculusParser) expression(_p int) (localctx IExpressionContext)
 			_prevctx = localctx
 			localctx = NewExpressionContext(p, _parentctx, _parentState)
 			p.PushNewRecursionContext(localctx, _startState, AmbientCalculusParserRULE_expression)
-			p.SetState(198)
+			p.SetState(197)
 
 			if !(p.Precpred(p.GetParserRuleContext(), 5)) {
 				p.SetError(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
 				goto errorExit
 			}
 			{
-				p.SetState(199)
+				p.SetState(198)
 				p.Operator()
 			}
 			{
-				p.SetState(200)
+				p.SetState(199)
 				p.expression(6)
 			}
 
 		}
-		p.SetState(206)
+		p.SetState(205)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
 		}
-		_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 10, p.GetParserRuleContext())
+		_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 9, p.GetParserRuleContext())
 		if p.HasError() {
 			goto errorExit
 		}
@@ -4038,15 +4098,15 @@ func (s *OperatorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *AmbientCalculusParser) Operator() (localctx IOperatorContext) {
 	localctx = NewOperatorContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 44, AmbientCalculusParserRULE_operator)
+	p.EnterRule(localctx, 46, AmbientCalculusParserRULE_operator)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(207)
+		p.SetState(206)
 		_la = p.GetTokenStream().LA(1)
 
-		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&2013265920) != 0) {
+		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&1006632960) != 0) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
@@ -4140,15 +4200,15 @@ func (s *ComparatorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *AmbientCalculusParser) Comparator() (localctx IComparatorContext) {
 	localctx = NewComparatorContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 46, AmbientCalculusParserRULE_comparator)
+	p.EnterRule(localctx, 48, AmbientCalculusParserRULE_comparator)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(209)
+		p.SetState(208)
 		_la = p.GetTokenStream().LA(1)
 
-		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&135291469824) != 0) {
+		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&67645734912) != 0) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
@@ -4171,7 +4231,7 @@ errorExit:
 
 func (p *AmbientCalculusParser) Sempred(localctx antlr.RuleContext, ruleIndex, predIndex int) bool {
 	switch ruleIndex {
-	case 21:
+	case 22:
 		var t *ExpressionContext = nil
 		if localctx != nil {
 			t = localctx.(*ExpressionContext)

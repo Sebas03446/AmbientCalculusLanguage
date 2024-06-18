@@ -5,7 +5,8 @@ program: statement* EOF;
 statement: processDeclaration
          | ambientDeclaration
          | movementStatement
-         | communicationStatement
+         | sendStatement
+         | receiveStatement
          | inStatement
          | outStatement
          | openStatement
@@ -30,9 +31,8 @@ conditions: conditionsBlock '{' conditionsVariableDeclaration*  '}';
 
 movementStatement: 'move' ID 'to' AMBIENTID ';';
 
-communicationStatement: 'send' expression 'to' ID ';'
-                      | 'receive' ID 'from' ID ';'
-                      ;
+sendStatement: 'send' STRING 'to' ID ';';
+receiveStatement: 'receive'';';
 
 inStatement: 'in' AMBIENTID ';';
 outStatement: 'out' ';';

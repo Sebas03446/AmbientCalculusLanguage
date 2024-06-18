@@ -32,8 +32,11 @@ type AmbientCalculusVisitor interface {
 	// Visit a parse tree produced by AmbientCalculusParser#movementStatement.
 	VisitMovementStatement(ctx *MovementStatementContext) interface{}
 
-	// Visit a parse tree produced by AmbientCalculusParser#communicationStatement.
-	VisitCommunicationStatement(ctx *CommunicationStatementContext) interface{}
+	// Visit a parse tree produced by AmbientCalculusParser#sendStatement.
+	VisitSendStatement(ctx *SendStatementContext) interface{}
+
+	// Visit a parse tree produced by AmbientCalculusParser#receiveStatement.
+	VisitReceiveStatement(ctx *ReceiveStatementContext) interface{}
 
 	// Visit a parse tree produced by AmbientCalculusParser#inStatement.
 	VisitInStatement(ctx *InStatementContext) interface{}
