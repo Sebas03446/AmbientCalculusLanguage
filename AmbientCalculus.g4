@@ -5,49 +5,62 @@ program: statement* EOF;
 statement: processDeclaration
          | ambientDeclaration
          | movementStatement
-         | communicationStatement
+         | sendStatement
+         | receiveStatement
          | inStatement
          | outStatement
          | openStatement
          | callStatement
          | printStatement
-         | ifStatement
          | variableDeclaration
+         | assignmentStatement
+         | modifyConditionStatement
          ;
 
 processDeclaration: 'process' ID '{' processStatement* '}';
 
 processStatement: statement
-                | moveStatement;
+                | moveStatement
+                | printConditionStatement;
 
 moveStatement: 'move' AMBIENTID ';';
 
 ambientDeclaration: 'ambient' AMBIENTID '{' conditions? statement* '}';
 
-conditions: 'conditions' '{' statement* '}';
+conditions: conditionsBlock '{' conditionsVariableDeclaration*  '}';
 
 movementStatement: 'move' ID 'to' AMBIENTID ';';
 
-communicationStatement: 'send' expression 'to' ID ';'
-                      | 'receive' ID 'from' ID ';'
-                      ;
+sendStatement: 'send' STRING 'to' ID ';';
+receiveStatement: 'receive'';';
 
 inStatement: 'in' AMBIENTID ';';
 outStatement: 'out' ';';
 openStatement: 'open' AMBIENTID ';';
 callStatement: 'call' ID ';';
 printStatement: 'print' expression ';';
-ifStatement: 'if' '(' expression ')' '{' statement* '}';
+printConditionStatement: 'printc' ID ';';
 
+modifyConditionStatement: 'modifyc' ID op=('+=' | '-=') expression ';';
+conditionsBlock: 'conditions';
 variableDeclaration: 'let' ID '=' expression ';';
 
-expression: expression op=('*'|'/') expression
-          | expression op=('+'|'-') expression
+conditionsVariableDeclaration: 'letc' ID '=' INT restriction? ';';
+restriction: 'restriction' comparator INT;
+
+assignmentStatement: ID '=' expression ';';
+
+expression: expression operator expression
           | '(' expression ')'
           | ID
           | INT
           | STRING
           ;
+
+operator: '+' | '-' | '*' | '/';
+
+comparator: '>' | '<' | '>=' | '<=' | '==' | '!=';
+
 
 AMBIENTID: [a-z][a-z0-9_]*;
 ID: [A-Z][A-Z0-9_]*;

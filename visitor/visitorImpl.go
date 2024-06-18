@@ -3,231 +3,158 @@ package visitor
 import (
 	"ambiencalculus/parser"
 	"fmt"
-	"strings"
+	"strconv"
 )
 
 type TreeShapeListener struct {
 	*parser.BaseAmbientCalculusListener
 	Environments    []Environment
-	Processes       map[string]interface{}
+	Processes       []Process
 	CurrentAmbients []string
 	Nodes           []string
 	Edges           []string
 	NodeId          int
 	NodeStack       []int
+	PostActions     []func()
+	CurrentProcess  string
 }
 
 type Environment struct {
 	Name          string
 	Processes     []string
 	AmbientParent string
+	Conditions    map[string]Condition
+}
+
+type Condition struct {
+	Value            int
+	Comparator       string
+	ValueRestriction int
+}
+
+type Process struct {
+	Name      string
+	Variables map[string]interface{}
+	Ambient   string
+	Messages  []Message
+}
+
+type Message struct {
+	Content string
+	From    string
 }
 
 func NewAmbientCalculusVisitorImpl() *TreeShapeListener {
 	return &TreeShapeListener{
-		Environments: make([]Environment, 0),
-		Processes:    make(map[string]interface{}),
-		Nodes:        make([]string, 0),
-		Edges:        make([]string, 0),
-		NodeStack:    make([]int, 0),
+		Environments:   make([]Environment, 0),
+		Processes:      make([]Process, 0),
+		Nodes:          make([]string, 0),
+		Edges:          make([]string, 0),
+		NodeStack:      make([]int, 0),
+		PostActions:    make([]func(), 0),
+		CurrentProcess: "",
 	}
 }
 
-func (v *TreeShapeListener) addNode(label string) int {
-	id := v.NodeId
-	v.Nodes = append(v.Nodes, fmt.Sprintf("  node%d [label=\"%s\"];", id, label))
-	v.NodeId++
-	return id
-}
-
-func (v *TreeShapeListener) addEdge(parent, child int) {
-	v.Edges = append(v.Edges, fmt.Sprintf("  node%d -> node%d;", parent, child))
-}
-
-func (v *TreeShapeListener) EnterProgram(ctx *parser.ProgramContext) {
-	rootId := v.addNode("Program")
-	v.NodeStack = append(v.NodeStack, rootId)
-}
-
-func (v *TreeShapeListener) ExitProgram(ctx *parser.ProgramContext) {
-	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
-}
-
-func (v *TreeShapeListener) ToDot() string {
-	var sb strings.Builder
-	sb.WriteString("digraph G {\n")
-	for _, node := range v.Nodes {
-		sb.WriteString(node + "\n")
-	}
-	for _, edge := range v.Edges {
-		sb.WriteString(edge + "\n")
-	}
-	sb.WriteString("}\n")
-	return sb.String()
-}
-
-func (v *TreeShapeListener) EnterAmbientDeclaration(ctx *parser.AmbientDeclarationContext) {
-	label := "ambient " + ctx.AMBIENTID().GetText()
-	nodeId := v.addNode(label)
-	parentId := v.NodeStack[len(v.NodeStack)-1]
-	v.addEdge(parentId, nodeId)
-	v.NodeStack = append(v.NodeStack, nodeId)
-
-	if ctx.AMBIENTID() != nil {
-		envName := ctx.AMBIENTID().GetText()
-		parentName := ""
-
-		if len(v.CurrentAmbients) > 0 {
-			parentName = v.CurrentAmbients[len(v.CurrentAmbients)-1]
-		}
-
-		for _, env := range v.Environments {
-			if env.Name == envName {
-				panic("No se pueden agregar ambientes con el mismo nombre: " + envName)
-			}
-		}
-
-		v.Environments = append(v.Environments, Environment{Name: envName, AmbientParent: parentName})
-		v.CurrentAmbients = append(v.CurrentAmbients, envName)
-	}
-}
-
-func (v *TreeShapeListener) ExitAmbientDeclaration(ctx *parser.AmbientDeclarationContext) {
-	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
-}
-
-func (v *TreeShapeListener) EnterProcessDeclaration(ctx *parser.ProcessDeclarationContext) {
-	label := "process " + ctx.ID().GetText()
-	nodeId := v.addNode(label)
-	parentId := v.NodeStack[len(v.NodeStack)-1]
-	v.addEdge(parentId, nodeId)
-	v.NodeStack = append(v.NodeStack, nodeId)
-
+func (v *TreeShapeListener) evaluateExpression(ctx *parser.ExpressionContext) interface{} {
 	if ctx.ID() != nil {
-		processName := ctx.ID().GetText()
-		v.Processes[processName] = nil
-		for i, env := range v.Environments {
-			if env.Name == v.CurrentAmbients[len(v.CurrentAmbients)-1] {
-				v.Environments[i].Processes = append(v.Environments[i].Processes, processName)
-				break
-			}
-		}
-	}
-}
-
-func (v *TreeShapeListener) ExitProcessDeclaration(ctx *parser.ProcessDeclarationContext) {
-	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
-}
-
-func (v *TreeShapeListener) EnterInStatement(ctx *parser.InStatementContext) {
-	label := "in " + ctx.AMBIENTID().GetText()
-	nodeId := v.addNode(label)
-	parentId := v.NodeStack[len(v.NodeStack)-1]
-	v.addEdge(parentId, nodeId)
-	v.NodeStack = append(v.NodeStack, nodeId)
-
-	if ctx.AMBIENTID() != nil {
-		destAmbient := ctx.AMBIENTID().GetText()
-		fmt.Println("Entrando al ambiente:", destAmbient)
-
-		currentAmbient := v.CurrentAmbients[len(v.CurrentAmbients)-1]
-		if currentAmbient == destAmbient {
-			fmt.Println("Ambiente actual ya es el destino")
-			return
-		}
-		for i, env := range v.Environments {
-			if env.Name == currentAmbient {
-				v.Environments[i].AmbientParent = destAmbient
-				break
-			}
-		}
-
-		fmt.Printf("El ambiente %s ha entrado exitosamente al ambiente %s\n", currentAmbient, destAmbient)
-	}
-}
-
-// EnterOutStatement sentencia out; se debe ver el ambiente actual y salir de él, tambien verificar si hay un ambiente padre en caso que no, imprimir que no se puede salir
-func (v *TreeShapeListener) EnterOutStatement(ctx *parser.OutStatementContext) {
-	label := "out"
-	nodeId := v.addNode(label)
-	parentId := v.NodeStack[len(v.NodeStack)-1]
-	v.addEdge(parentId, nodeId)
-	v.NodeStack = append(v.NodeStack, nodeId)
-
-	currentAmbient := v.CurrentAmbients[len(v.CurrentAmbients)-1]
-
-	for i, env := range v.Environments {
-		if env.Name == currentAmbient {
-			if env.AmbientParent == "" {
-				fmt.Println("No se puede salir del ambiente actual, ya que no tiene un ambiente padre")
-				return
-			}
-
-			parentOfParentAmbient := ""
-			for _, env2 := range v.Environments {
-				if env2.Name == env.AmbientParent {
-					parentOfParentAmbient = env2.AmbientParent
-					break
+		varName := ctx.ID().GetText()
+		for _, process := range v.Processes {
+			if process.Name == v.CurrentProcess {
+				if value, ok := process.Variables[varName]; ok {
+					return value
 				}
+				panic("Variable no definida: " + varName)
+			} else {
+				panic("El proceso no existe")
 			}
-
-			env.AmbientParent = parentOfParentAmbient
-			v.CurrentAmbients = v.CurrentAmbients[:len(v.CurrentAmbients)-1]
-			v.Environments[i] = env
-			fmt.Printf("El ambiente %s ha salido exitosamente\n", currentAmbient)
-			return
+		}
+	} else if ctx.INT() != nil {
+		value, _ := strconv.Atoi(ctx.INT().GetText())
+		return value
+	} else if ctx.STRING() != nil {
+		return ctx.STRING().GetText()
+	} else if ctx.Operator() != nil {
+		left := v.evaluateExpression(ctx.Expression(0).(*parser.ExpressionContext))
+		right := v.evaluateExpression(ctx.Expression(1).(*parser.ExpressionContext))
+		switch ctx.Operator().GetText() {
+		case "+":
+			return left.(int) + right.(int)
+		case "-":
+			return left.(int) - right.(int)
+		case "*":
+			return left.(int) * right.(int)
+		case "/":
+			return left.(int) / right.(int)
 		}
 	}
+	return nil
 }
 
-func (v *TreeShapeListener) ExitOutStatement(ctx *parser.OutStatementContext) {
-	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
-}
-
-func (v *TreeShapeListener) ExitInStatement(ctx *parser.InStatementContext) {
-	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
-}
-
-func (v *TreeShapeListener) EnterMovementStatement(ctx *parser.MovementStatementContext) {
-	label := "move " + ctx.ID().GetText()
-	nodeId := v.addNode(label)
-	parentId := v.NodeStack[len(v.NodeStack)-1]
-	v.addEdge(parentId, nodeId)
+func (v *TreeShapeListener) EnterSendStatement(ctx *parser.SendStatementContext) {
+	message := ctx.STRING().GetText()
+	label := "send " + message[1:len(message)-1] + " to " + ctx.ID().GetText()
+	nodeId := v.AddNode(label)
+	if len(v.NodeStack) > 0 {
+		parentId := v.NodeStack[len(v.NodeStack)-1]
+		v.AddEdge(parentId, nodeId)
+	}
 	v.NodeStack = append(v.NodeStack, nodeId)
 
-	if ctx.ID() != nil {
-		fmt.Println(ctx.ID().GetText())
-	}
+	currentProcess := v.CurrentProcess
+	destinationProcess := ctx.ID().GetText()
+	existDestinationProcess := false
+
+	v.PostActions = append(v.PostActions, func() {
+
+		if currentProcess == destinationProcess {
+			panic("No se puede enviar un mensaje al mismo proceso")
+		}
+
+		for i, process := range v.Processes {
+			if process.Name == destinationProcess {
+				existDestinationProcess = true
+				process.Messages = append(process.Messages, Message{Content: message, From: currentProcess})
+				v.Processes[i] = process
+				break
+			}
+		}
+
+		if !existDestinationProcess {
+			panic("El proceso " + destinationProcess + " no existe")
+		}
+
+	})
 }
 
-func (v *TreeShapeListener) ExitMovementStatement(ctx *parser.MovementStatementContext) {
+func (v *TreeShapeListener) ExitSendStatement(ctx *parser.SendStatementContext) {
 	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
 }
 
-func (v *TreeShapeListener) EnterCommunicationStatement(ctx *parser.CommunicationStatementContext) {
-	fmt.Println("Visiting communication statement")
+func (v *TreeShapeListener) EnterReceiveStatement(ctx *parser.ReceiveStatementContext) {
+	label := "receive"
+	nodeId := v.AddNode(label)
+	if len(v.NodeStack) > 0 {
+		parentId := v.NodeStack[len(v.NodeStack)-1]
+		v.AddEdge(parentId, nodeId)
+	}
+	v.NodeStack = append(v.NodeStack, nodeId)
+
+	currentProcess := v.CurrentProcess
+	v.PostActions = append(v.PostActions, func() {
+		for i, process := range v.Processes {
+			if process.Name == currentProcess {
+				if len(process.Messages) == 0 {
+					fmt.Println("No hay mensajes para recibir")
+				}
+				fmt.Println("Mensaje recibido de:", process.Messages[0].From, "con contenido:", process.Messages[0].Content)
+				process.Messages = process.Messages[1:]
+				v.Processes[i] = process
+			}
+		}
+	})
 }
 
-func (v *TreeShapeListener) EnterExpression(ctx *parser.ExpressionContext) {
-	fmt.Println("Visiting expression")
-	if ctx.ID() != nil {
-		fmt.Println(ctx.ID().GetText())
-	} else if ctx.INT() != nil {
-		fmt.Println(ctx.INT().GetText())
-	} else if ctx.STRING() != nil {
-		fmt.Println(ctx.STRING().GetText())
-	} else if ctx.GetOp() != nil {
-		left := ctx.Expression(0)
-		right := ctx.Expression(1)
-		switch ctx.GetOp().GetTokenType() {
-		case '*':
-			fmt.Println(left.GetText() + " * " + right.GetText())
-		case '/':
-			fmt.Println(left.GetText() + " / " + right.GetText())
-		case '+':
-			fmt.Println(left.GetText() + " + " + right.GetText())
-		case '-':
-			fmt.Println(left.GetText() + " - " + right.GetText())
-		}
-	}
+func (v *TreeShapeListener) ExitReceiveStatement(ctx *parser.ReceiveStatementContext) {
+	v.NodeStack = v.NodeStack[:len(v.NodeStack)-1]
 }

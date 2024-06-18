@@ -32,8 +32,11 @@ type AmbientCalculusListener interface {
 	// EnterMovementStatement is called when entering the movementStatement production.
 	EnterMovementStatement(c *MovementStatementContext)
 
-	// EnterCommunicationStatement is called when entering the communicationStatement production.
-	EnterCommunicationStatement(c *CommunicationStatementContext)
+	// EnterSendStatement is called when entering the sendStatement production.
+	EnterSendStatement(c *SendStatementContext)
+
+	// EnterReceiveStatement is called when entering the receiveStatement production.
+	EnterReceiveStatement(c *ReceiveStatementContext)
 
 	// EnterInStatement is called when entering the inStatement production.
 	EnterInStatement(c *InStatementContext)
@@ -50,14 +53,35 @@ type AmbientCalculusListener interface {
 	// EnterPrintStatement is called when entering the printStatement production.
 	EnterPrintStatement(c *PrintStatementContext)
 
-	// EnterIfStatement is called when entering the ifStatement production.
-	EnterIfStatement(c *IfStatementContext)
+	// EnterPrintConditionStatement is called when entering the printConditionStatement production.
+	EnterPrintConditionStatement(c *PrintConditionStatementContext)
+
+	// EnterModifyConditionStatement is called when entering the modifyConditionStatement production.
+	EnterModifyConditionStatement(c *ModifyConditionStatementContext)
+
+	// EnterConditionsBlock is called when entering the conditionsBlock production.
+	EnterConditionsBlock(c *ConditionsBlockContext)
 
 	// EnterVariableDeclaration is called when entering the variableDeclaration production.
 	EnterVariableDeclaration(c *VariableDeclarationContext)
 
+	// EnterConditionsVariableDeclaration is called when entering the conditionsVariableDeclaration production.
+	EnterConditionsVariableDeclaration(c *ConditionsVariableDeclarationContext)
+
+	// EnterRestriction is called when entering the restriction production.
+	EnterRestriction(c *RestrictionContext)
+
+	// EnterAssignmentStatement is called when entering the assignmentStatement production.
+	EnterAssignmentStatement(c *AssignmentStatementContext)
+
 	// EnterExpression is called when entering the expression production.
 	EnterExpression(c *ExpressionContext)
+
+	// EnterOperator is called when entering the operator production.
+	EnterOperator(c *OperatorContext)
+
+	// EnterComparator is called when entering the comparator production.
+	EnterComparator(c *ComparatorContext)
 
 	// ExitProgram is called when exiting the program production.
 	ExitProgram(c *ProgramContext)
@@ -83,8 +107,11 @@ type AmbientCalculusListener interface {
 	// ExitMovementStatement is called when exiting the movementStatement production.
 	ExitMovementStatement(c *MovementStatementContext)
 
-	// ExitCommunicationStatement is called when exiting the communicationStatement production.
-	ExitCommunicationStatement(c *CommunicationStatementContext)
+	// ExitSendStatement is called when exiting the sendStatement production.
+	ExitSendStatement(c *SendStatementContext)
+
+	// ExitReceiveStatement is called when exiting the receiveStatement production.
+	ExitReceiveStatement(c *ReceiveStatementContext)
 
 	// ExitInStatement is called when exiting the inStatement production.
 	ExitInStatement(c *InStatementContext)
@@ -101,12 +128,33 @@ type AmbientCalculusListener interface {
 	// ExitPrintStatement is called when exiting the printStatement production.
 	ExitPrintStatement(c *PrintStatementContext)
 
-	// ExitIfStatement is called when exiting the ifStatement production.
-	ExitIfStatement(c *IfStatementContext)
+	// ExitPrintConditionStatement is called when exiting the printConditionStatement production.
+	ExitPrintConditionStatement(c *PrintConditionStatementContext)
+
+	// ExitModifyConditionStatement is called when exiting the modifyConditionStatement production.
+	ExitModifyConditionStatement(c *ModifyConditionStatementContext)
+
+	// ExitConditionsBlock is called when exiting the conditionsBlock production.
+	ExitConditionsBlock(c *ConditionsBlockContext)
 
 	// ExitVariableDeclaration is called when exiting the variableDeclaration production.
 	ExitVariableDeclaration(c *VariableDeclarationContext)
 
+	// ExitConditionsVariableDeclaration is called when exiting the conditionsVariableDeclaration production.
+	ExitConditionsVariableDeclaration(c *ConditionsVariableDeclarationContext)
+
+	// ExitRestriction is called when exiting the restriction production.
+	ExitRestriction(c *RestrictionContext)
+
+	// ExitAssignmentStatement is called when exiting the assignmentStatement production.
+	ExitAssignmentStatement(c *AssignmentStatementContext)
+
 	// ExitExpression is called when exiting the expression production.
 	ExitExpression(c *ExpressionContext)
+
+	// ExitOperator is called when exiting the operator production.
+	ExitOperator(c *OperatorContext)
+
+	// ExitComparator is called when exiting the comparator production.
+	ExitComparator(c *ComparatorContext)
 }

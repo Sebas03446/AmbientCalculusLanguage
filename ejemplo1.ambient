@@ -1,0 +1,22 @@
+ambient supermercado {
+    ambient frutas {
+    conditions {
+        letc CANTIDADPERAS = 25 restriction >= 0;
+    }
+    
+    }
+    ambient carritodecompra{
+        conditions {
+            letc CANTIDADPERAS = 0;
+        }
+        process SELECCIONARPERAS {
+            move SELECCIONARPERAS to frutas;
+            let PERAS = 10;
+            modifyc CANTIDADPERAS -= PERAS;
+            printc CANTIDADPERAS;
+            move SELECCIONARPERAS to carritodecompra;
+            modifyc CANTIDADPERAS += PERAS;
+            printc CANTIDADPERAS;
+        }
+    }
+}

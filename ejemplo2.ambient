@@ -1,0 +1,41 @@
+ambient mesa {
+    conditions {
+        letc PALILLOS = 2 restriction >= 0;
+    }
+    ambient filosofo1 {
+        conditions {
+            letc PALILLOS = 0 restriction >= 0;
+        }
+        process PENSAR1{
+        }
+        process COMER1 {
+            move COMER1 to mesa;
+            modifyc PALILLOS -= 2;
+            move COMER1 to filosofo1;
+            modifyc PALILLOS += 2;
+            print "Filosofo 1 comiendo";
+            modifyc PALILLOS -= 2;
+            move COMER1 to mesa;
+            modifyc PALILLOS += 2;
+            move COMER1 to filosofo1;
+        }
+    }
+    ambient filosofo2 {
+        conditions {
+            letc PALILLOS = 0 restriction >= 0;
+        }
+        process PENSAR2 {
+        }
+        process COMER2 {
+            move COMER2 to mesa;
+            modifyc PALILLOS -= 2;
+            move COMER2 to filosofo2;
+            modifyc PALILLOS += 2;
+            print "Filosofo 2 comiendo";
+            modifyc PALILLOS -= 2;
+            move COMER2 to mesa;
+            modifyc PALILLOS += 2;
+            move COMER2 to filosofo2;
+        }
+    }
+}

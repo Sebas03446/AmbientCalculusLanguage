@@ -69,13 +69,17 @@ func (s *BaseAmbientCalculusListener) EnterMovementStatement(ctx *MovementStatem
 // ExitMovementStatement is called when production movementStatement is exited.
 func (s *BaseAmbientCalculusListener) ExitMovementStatement(ctx *MovementStatementContext) {}
 
-// EnterCommunicationStatement is called when production communicationStatement is entered.
-func (s *BaseAmbientCalculusListener) EnterCommunicationStatement(ctx *CommunicationStatementContext) {
-}
+// EnterSendStatement is called when production sendStatement is entered.
+func (s *BaseAmbientCalculusListener) EnterSendStatement(ctx *SendStatementContext) {}
 
-// ExitCommunicationStatement is called when production communicationStatement is exited.
-func (s *BaseAmbientCalculusListener) ExitCommunicationStatement(ctx *CommunicationStatementContext) {
-}
+// ExitSendStatement is called when production sendStatement is exited.
+func (s *BaseAmbientCalculusListener) ExitSendStatement(ctx *SendStatementContext) {}
+
+// EnterReceiveStatement is called when production receiveStatement is entered.
+func (s *BaseAmbientCalculusListener) EnterReceiveStatement(ctx *ReceiveStatementContext) {}
+
+// ExitReceiveStatement is called when production receiveStatement is exited.
+func (s *BaseAmbientCalculusListener) ExitReceiveStatement(ctx *ReceiveStatementContext) {}
 
 // EnterInStatement is called when production inStatement is entered.
 func (s *BaseAmbientCalculusListener) EnterInStatement(ctx *InStatementContext) {}
@@ -107,11 +111,27 @@ func (s *BaseAmbientCalculusListener) EnterPrintStatement(ctx *PrintStatementCon
 // ExitPrintStatement is called when production printStatement is exited.
 func (s *BaseAmbientCalculusListener) ExitPrintStatement(ctx *PrintStatementContext) {}
 
-// EnterIfStatement is called when production ifStatement is entered.
-func (s *BaseAmbientCalculusListener) EnterIfStatement(ctx *IfStatementContext) {}
+// EnterPrintConditionStatement is called when production printConditionStatement is entered.
+func (s *BaseAmbientCalculusListener) EnterPrintConditionStatement(ctx *PrintConditionStatementContext) {
+}
 
-// ExitIfStatement is called when production ifStatement is exited.
-func (s *BaseAmbientCalculusListener) ExitIfStatement(ctx *IfStatementContext) {}
+// ExitPrintConditionStatement is called when production printConditionStatement is exited.
+func (s *BaseAmbientCalculusListener) ExitPrintConditionStatement(ctx *PrintConditionStatementContext) {
+}
+
+// EnterModifyConditionStatement is called when production modifyConditionStatement is entered.
+func (s *BaseAmbientCalculusListener) EnterModifyConditionStatement(ctx *ModifyConditionStatementContext) {
+}
+
+// ExitModifyConditionStatement is called when production modifyConditionStatement is exited.
+func (s *BaseAmbientCalculusListener) ExitModifyConditionStatement(ctx *ModifyConditionStatementContext) {
+}
+
+// EnterConditionsBlock is called when production conditionsBlock is entered.
+func (s *BaseAmbientCalculusListener) EnterConditionsBlock(ctx *ConditionsBlockContext) {}
+
+// ExitConditionsBlock is called when production conditionsBlock is exited.
+func (s *BaseAmbientCalculusListener) ExitConditionsBlock(ctx *ConditionsBlockContext) {}
 
 // EnterVariableDeclaration is called when production variableDeclaration is entered.
 func (s *BaseAmbientCalculusListener) EnterVariableDeclaration(ctx *VariableDeclarationContext) {}
@@ -119,8 +139,40 @@ func (s *BaseAmbientCalculusListener) EnterVariableDeclaration(ctx *VariableDecl
 // ExitVariableDeclaration is called when production variableDeclaration is exited.
 func (s *BaseAmbientCalculusListener) ExitVariableDeclaration(ctx *VariableDeclarationContext) {}
 
+// EnterConditionsVariableDeclaration is called when production conditionsVariableDeclaration is entered.
+func (s *BaseAmbientCalculusListener) EnterConditionsVariableDeclaration(ctx *ConditionsVariableDeclarationContext) {
+}
+
+// ExitConditionsVariableDeclaration is called when production conditionsVariableDeclaration is exited.
+func (s *BaseAmbientCalculusListener) ExitConditionsVariableDeclaration(ctx *ConditionsVariableDeclarationContext) {
+}
+
+// EnterRestriction is called when production restriction is entered.
+func (s *BaseAmbientCalculusListener) EnterRestriction(ctx *RestrictionContext) {}
+
+// ExitRestriction is called when production restriction is exited.
+func (s *BaseAmbientCalculusListener) ExitRestriction(ctx *RestrictionContext) {}
+
+// EnterAssignmentStatement is called when production assignmentStatement is entered.
+func (s *BaseAmbientCalculusListener) EnterAssignmentStatement(ctx *AssignmentStatementContext) {}
+
+// ExitAssignmentStatement is called when production assignmentStatement is exited.
+func (s *BaseAmbientCalculusListener) ExitAssignmentStatement(ctx *AssignmentStatementContext) {}
+
 // EnterExpression is called when production expression is entered.
 func (s *BaseAmbientCalculusListener) EnterExpression(ctx *ExpressionContext) {}
 
 // ExitExpression is called when production expression is exited.
 func (s *BaseAmbientCalculusListener) ExitExpression(ctx *ExpressionContext) {}
+
+// EnterOperator is called when production operator is entered.
+func (s *BaseAmbientCalculusListener) EnterOperator(ctx *OperatorContext) {}
+
+// ExitOperator is called when production operator is exited.
+func (s *BaseAmbientCalculusListener) ExitOperator(ctx *OperatorContext) {}
+
+// EnterComparator is called when production comparator is entered.
+func (s *BaseAmbientCalculusListener) EnterComparator(ctx *ComparatorContext) {}
+
+// ExitComparator is called when production comparator is exited.
+func (s *BaseAmbientCalculusListener) ExitComparator(ctx *ComparatorContext) {}

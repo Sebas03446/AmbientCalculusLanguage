@@ -32,8 +32,11 @@ type AmbientCalculusVisitor interface {
 	// Visit a parse tree produced by AmbientCalculusParser#movementStatement.
 	VisitMovementStatement(ctx *MovementStatementContext) interface{}
 
-	// Visit a parse tree produced by AmbientCalculusParser#communicationStatement.
-	VisitCommunicationStatement(ctx *CommunicationStatementContext) interface{}
+	// Visit a parse tree produced by AmbientCalculusParser#sendStatement.
+	VisitSendStatement(ctx *SendStatementContext) interface{}
+
+	// Visit a parse tree produced by AmbientCalculusParser#receiveStatement.
+	VisitReceiveStatement(ctx *ReceiveStatementContext) interface{}
 
 	// Visit a parse tree produced by AmbientCalculusParser#inStatement.
 	VisitInStatement(ctx *InStatementContext) interface{}
@@ -50,12 +53,33 @@ type AmbientCalculusVisitor interface {
 	// Visit a parse tree produced by AmbientCalculusParser#printStatement.
 	VisitPrintStatement(ctx *PrintStatementContext) interface{}
 
-	// Visit a parse tree produced by AmbientCalculusParser#ifStatement.
-	VisitIfStatement(ctx *IfStatementContext) interface{}
+	// Visit a parse tree produced by AmbientCalculusParser#printConditionStatement.
+	VisitPrintConditionStatement(ctx *PrintConditionStatementContext) interface{}
+
+	// Visit a parse tree produced by AmbientCalculusParser#modifyConditionStatement.
+	VisitModifyConditionStatement(ctx *ModifyConditionStatementContext) interface{}
+
+	// Visit a parse tree produced by AmbientCalculusParser#conditionsBlock.
+	VisitConditionsBlock(ctx *ConditionsBlockContext) interface{}
 
 	// Visit a parse tree produced by AmbientCalculusParser#variableDeclaration.
 	VisitVariableDeclaration(ctx *VariableDeclarationContext) interface{}
 
+	// Visit a parse tree produced by AmbientCalculusParser#conditionsVariableDeclaration.
+	VisitConditionsVariableDeclaration(ctx *ConditionsVariableDeclarationContext) interface{}
+
+	// Visit a parse tree produced by AmbientCalculusParser#restriction.
+	VisitRestriction(ctx *RestrictionContext) interface{}
+
+	// Visit a parse tree produced by AmbientCalculusParser#assignmentStatement.
+	VisitAssignmentStatement(ctx *AssignmentStatementContext) interface{}
+
 	// Visit a parse tree produced by AmbientCalculusParser#expression.
 	VisitExpression(ctx *ExpressionContext) interface{}
+
+	// Visit a parse tree produced by AmbientCalculusParser#operator.
+	VisitOperator(ctx *OperatorContext) interface{}
+
+	// Visit a parse tree produced by AmbientCalculusParser#comparator.
+	VisitComparator(ctx *ComparatorContext) interface{}
 }

@@ -1,0 +1,11 @@
+ambient edificio {
+}
+
+ambient oficina {
+        in edificio;
+        out;
+}
+
+ambient mesa {
+        in oficina;
+}
